@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "solutions": "Soluciones",
+    "ourWork": "Nuestro Trabajo",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "discoverProcess": "Descubre Nuestro Proceso",
+    "headline": "Creando Experiencias Digitales de Alto Impacto Con Propósito",
+    "uiuxDesign": "Diseño UI/UX",
+    "branding": "Branding",
+    "startDesign": "Comenzar Diseño"
+  },
+  "services": {
+    "header": "En Sketchit, los sitios web no son solo páginas.\nSon experiencias fluidas.\nConstruidas para rendir.",
+    "branding": {
+      "title": "Identidad de\nMarca",
+      "description": "Desde logos cuidadosamente diseñados y creatividades atractivas para redes sociales hasta banners y folletos, ofrecemos soluciones de diseño visual de extremo a extremo que fortalecen tu marca y te ayudan a destacar."
+    },
+    "webDesign": {
+      "title": "Diseño\nWeb",
+      "description": "Desde diseños intuitivos y diseños responsivos hasta experiencias de usuario fluidas, creamos sitios web de extremo a extremo que reflejan tu marca y funcionan perfectamente en todos los dispositivos."
+    },
+    "brandGrowth": {
+      "title": "Crecimiento de\nMarca",
+      "description": "Desde el posicionamiento de marca y la consistencia visual hasta el compromiso de la audiencia y la estrategia a largo plazo, impulsamos el crecimiento de la marca a través de una planificación cuidadosa, un diseño sólido y una ejecución digital basada en datos."
+    }
+  },
+  "cta": {
+    "bookCall": "Reservar Llamada"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "solutions": "Solutions",
+    "ourWork": "Notre Travail",
+    "contact": "Contact"
+  },
+  "hero": {
+    "discoverProcess": "Découvrez Notre Processus",
+    "headline": "Créer des Expériences Numériques à Fort Impact Avec un Objectif",
+    "uiuxDesign": "Design UI/UX",
+    "branding": "Branding",
+    "startDesign": "Commencer le Design"
+  },
+  "services": {
+    "header": "Chez Sketchit, les sites web ne sont pas que des pages.\nCe sont des expériences fluides.\nConstruites pour performer.",
+    "branding": {
+      "title": "Identité de\nMarque",
+      "description": "Des logos soigneusement conçus et des créations engageantes pour les réseaux sociaux aux bannières et brochures, nous offrons des solutions de design visuel de bout en bout qui renforcent votre marque et vous aident à vous démarquer."
+    },
+    "webDesign": {
+      "title": "Design\nWeb",
+      "description": "Des mises en page intuitives et des designs responsives aux expériences utilisateur fluides, nous créons des sites web de bout en bout qui reflètent votre marque et fonctionnent parfaitement sur tous les appareils."
+    },
+    "brandGrowth": {
+      "title": "Croissance de\nMarque",
+      "description": "Du positionnement de marque et de la cohérence visuelle à l'engagement du public et à la stratégie à long terme, nous stimulons la croissance de la marque grâce à une planification réfléchie, un design solide et une exécution numérique basée sur les données."
+    }
+  },
+  "cta": {
+    "bookCall": "Réserver un Appel"
+  }
+}

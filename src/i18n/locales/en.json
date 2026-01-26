@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "Home",
+    "solutions": "Solutions",
+    "ourWork": "Our Work",
+    "contact": "Contact"
+  },
+  "hero": {
+    "discoverProcess": "Discover Our Process",
+    "headline": "Creating High-Impact Digital Experiences With Purpose",
+    "uiuxDesign": "UI/UX Design",
+    "branding": "Branding",
+    "startDesign": "Start Design"
+  },
+  "services": {
+    "header": "At Sketchit, websites aren't just pages.\nThey're seamless experiences.\nBuilt to perform.",
+    "branding": {
+      "title": "Branding\nIdentity",
+      "description": "From thoughtfully crafted logos and engaging social media creatives to banners and brochures, we deliver end-to-end visual design solutions that strengthen your brand and help you stand out."
+    },
+    "webDesign": {
+      "title": "Web\nDesign",
+      "description": "From intuitive layouts and responsive designs to seamless user experiences, we create end-to-end websites that reflect your brand and perform flawlessly across all devices."
+    },
+    "brandGrowth": {
+      "title": "Brand\nGrowth",
+      "description": "From brand positioning and visual consistency to audience engagement and long-term strategy, we drive brand growth through thoughtful planning, strong design, and data-driven digital execution."
+    }
+  },
+  "cta": {
+    "bookCall": "Book a Call"
+  },
+  "portfolio": {
+    "header": "At Sketchit, design is only the start.\nCampaigns are just the tools. Impact is\nthe mission.",
+    "allPortfolio": "All Portfolio",
+    "projectTitle": "Fitfox Website Design"
+  },
+  "visualSystems": {
+    "header": "Visual systems designed\nto communicate at scale.",
+    "date": "2026",
+    "description": "We design communication-led creatives that prioritize message clarity, visibility, and audience understanding regardless of medium or language.",
+    "viewAllWorks": "View all works"
+  }
+}

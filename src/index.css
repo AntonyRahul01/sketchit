@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* ============================================
+   FONT FACE DECLARATIONS - InterTight Regular
+   ============================================ */
+
+@font-face {
+  font-family: 'InterTight';
+  src: url('../assets/fonts/InterTight-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InterTight';
+  src: url('../assets/fonts/InterTight-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'InterTight';
+  src: url('../assets/fonts/InterTight-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   COLOR CONFIGURATION - EASILY CUSTOMIZABLE
+   ============================================
+   
+   All colors for the application are defined below in the @theme block.
+   To change colors across the entire application, simply modify the values below.
+   
+   Colors are automatically available as Tailwind utility classes:
+   - bg-primary, text-primary, border-primary, etc.
+   - bg-background-secondary, text-text-secondary, etc.
+   - bg-accent-orange, text-accent-green, etc.
+   
+   Example usage in components:
+   - className="bg-primary text-white"
+   - className="bg-background-secondary text-text"
+   - className="border-border"
+*/
+
+@theme {
+  /* Primary colors - Main brand colors */
+  --color-primary: #000000;
+  /* Main black - used for buttons, headings, etc. */
+  --color-primary-light: #1a1a1a;
+  /* Lighter black - hover states */
+  --color-primary-dark: #000000;
+  /* Darker black - active states */
+
+  /* Background colors - Page and section backgrounds */
+  --color-background: #ffffff;
+  /* Main white background */
+  --color-background-secondary: #f5f5f5;
+  /* Light gray background - pills, cards */
+  --color-background-dark: #1a1a1a;
+  /* Dark background - laptop section */
+  --color-background-pattern: #2a2a2a;
+  /* Pattern background - decorative */
+
+  /* Text colors - Content text colors */
+  --color-text: #000000;
+  /* Main text color - headings, body */
+  --color-text-secondary: #666666;
+  /* Secondary text - descriptions, captions */
+  --color-text-light: #999999;
+  /* Light text - placeholders, hints */
+  --color-text-white: #ffffff;
+  /* White text - on dark backgrounds */
+
+  /* Accent colors - Highlights and special elements */
+  --color-accent: #000000;
+  /* Main accent color */
+  --color-accent-orange: #ff6b35;
+  /* Orange - buttons, highlights (FITFOX) */
+  --color-accent-teal: #20b2aa;
+  /* Teal accent - decorative elements */
+  --color-accent-green: #4caf50;
+  /* Green - badges, success states */
+
+  /* Border colors - Dividers and borders */
+  --color-border: #e5e5e5;
+  /* Light border - default borders */
+  --color-border-dark: #333333;
+  /* Dark border - on dark backgrounds */
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'InterTight', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll 15s linear infinite;
+  }
+
+  @keyframes bounce {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-bounce-custom {
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent);
+    transition: left 0.5s ease;
+  }
+
+  .shine-effect:hover::before {
+    left: 100%;
+  }
+}
