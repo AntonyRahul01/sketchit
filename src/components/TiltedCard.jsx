@@ -110,7 +110,7 @@ export default function TiltedCard({
         />
 
         {displayOverlayContent && overlayContent && (
-          <motion.div 
+          <motion.div
             className="absolute top-0 left-0 z-[2] will-change-transform pointer-events-none [transform-style:preserve-3d]"
             style={{
               width: imageWidth,

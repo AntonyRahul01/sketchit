@@ -81,8 +81,8 @@ export function HoverBorderGradient({
         }}
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
-      <div
-        className="absolute z-[1] flex-none inset-[2px] rounded-[100px]"
+      <div 
+        className="absolute z-[1] flex-none inset-[2px] rounded-[100px]" 
         style={{
           backgroundColor: className.includes('bg-white') ? '#ffffff' : '#1E1E1E'
         }}

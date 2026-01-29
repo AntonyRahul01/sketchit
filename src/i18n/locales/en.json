@@ -40,5 +40,60 @@
     "date": "2026",
     "description": "We design communication-led creatives that prioritize message clarity, visibility, and audience understanding regardless of medium or language.",
     "viewAllWorks": "View all works"
+  },
+  "testimonials": {
+    "rating": "4.8",
+    "reviews": "12+ Reviews",
+    "tagline": "World-class brands. Creative design. Lasting impact.",
+    "items": [
+      {
+        "rating": "4.8",
+        "quote": "Sketchit understood our idea perfectly and turned it into a clean, modern design. Their UI/UX work really improved our user experience.",
+        "name": "Amara Collins",
+        "title": "Creative Director of Visual Narratives"
+      },
+      {
+        "rating": "5.0",
+        "quote": "Working with Sketchit was a game-changer for our brand. Their attention to detail and creative vision transformed our digital presence completely.",
+        "name": "Michael Chen",
+        "title": "Marketing Director"
+      },
+      {
+        "rating": "4.7",
+        "quote": "The team at Sketchit delivered beyond our expectations. Their design solutions are not just beautiful, but also highly functional and user-friendly.",
+        "name": "Sarah Johnson",
+        "title": "Product Manager"
+      }
+    ]
+  },
+  "ceoCorner": {
+    "header": "CEO CORNER",
+    "headline": "Leading with imagination.\nDriving with strategy.\nDelivering results that shine.",
+    "name": "Sanjeevan Sivanoli",
+    "title": "Founder & CEO - Sketchit"
+  },
+  "contact": {
+    "headline": "Ready to build / something impactful?",
+    "description": "Whether you're building a brand, launching a website or growing a product, we're here to help. Share your goals - We'll handle the strategy.",
+    "quickContact": "Quick Contact",
+    "cta": "Tell us about your idea. we'd love to build something great.",
+    "name": "Name",
+    "email": "Email",
+    "projectIdea": "Your project idea",
+    "privacyPolicyLink": "privacy policy",
+    "submit": "Submit form"
+  },
+  "footer": {
+    "tagline": "Let's Create Work\nThat Lasts",
+    "home": "HOME",
+    "ourWorks": "OUR WORKS",
+    "services": "SERVICES",
+    "contact": "CONTACT",
+    "letsGetStarted": "Let's Get Started",
+    "contactUs": "CONTACT US",
+    "email": "sketchit2025@gmail.com",
+    "visitUs": "VISIT US",
+    "location": "Zurich Switzerland",
+    "copyright": "© 2025 Sketchit. All rights reserved."
   }
 }
