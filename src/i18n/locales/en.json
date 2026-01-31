@@ -7,7 +7,7 @@
   },
   "hero": {
     "discoverProcess": "Discover Our Process",
-    "headline": "Creating High-Impact Digital Experiences With Purpose",
+    "headline": "Creating High-Impact\nDigital Experiences\nWith Purpose",
     "uiuxDesign": "UI/UX Design",
     "branding": "Branding",
     "startDesign": "Start Design"
@@ -29,6 +29,9 @@
   },
   "cta": {
     "bookCall": "Book a Call"
+  },
+  "trustedBy": {
+    "title": "We are Trusted by"
   },
   "portfolio": {
     "header": "At Sketchit, design is only the start.\nCampaigns are just the tools. Impact is\nthe mission.",
@@ -80,6 +83,7 @@
     "name": "Name",
     "email": "Email",
     "projectIdea": "Your project idea",
+    "acceptPrivacy": "Accept our",
     "privacyPolicyLink": "privacy policy",
     "submit": "Submit form"
   },
@@ -94,6 +98,7 @@
     "email": "sketchit2025@gmail.com",
     "visitUs": "VISIT US",
     "location": "Zurich Switzerland",
-    "copyright": "© 2025 Sketchit. All rights reserved."
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "© Sketchit 2026. All Rights Reserved"
   }
 }

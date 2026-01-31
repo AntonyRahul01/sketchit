@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import ellipse from '../assets/images/ellipse.png';
 import upArrow from '../assets/images/uparrow.png';
@@ -42,9 +42,314 @@ import hoverVideo3 from '../assets/videos/hovervdo3.mp4';
 import { ArrowRight, ArrowUpRight, MessageCircle, Instagram, Facebook, Zap } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useInView } from 'motion/react';
 import contactImage from '../assets/images/contact.png';
+import whiteIcon from '../assets/images/whiteicon.png';
+
+// Testimonial Quote Component with Animation
+const TestimonialQuote = ({ quote }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
+
+  return (
+    <motion.p
+      ref={ref}
+      className="text-[20px] text-[#F6F6F9] leading-relaxed text-center max-w-[520px] mx-auto mb-10 font-normal tracking-[-0.01em]"
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+    >
+      "{quote}"
+    </motion.p>
+  );
+};
+
+// Testimonial Author Component with Animation
+const TestimonialAuthor = ({ name, title }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      className="text-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+    >
+      <p className="text-white font-medium text-[18px]">
+        {name}
+      </p>
+      <p className="text-[#C5C5C5] text-[15px] font-normal">
+        {title}
+      </p>
+    </motion.div>
+  );
+};
+
+// Contact Section Headline Component with Animation
+const ContactSectionHeadline = ({ headline }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { i18n } = useTranslation();
+
+  return (
+    <motion.h2
+      ref={ref}
+      className={`leading-[1.1] font-medium text-[#1E1E1E] text-left ${i18n.language === 'ta'
+        ? 'text-[48px]'
+        : 'text-[60px]'
+        }`}
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+    >
+      {(() => {
+        // For Tamil, split at " / " to create two lines
+        if (i18n.language === 'ta') {
+          if (headline.includes(' / ')) {
+            const parts = headline.split(' / ');
+            return (
+              <>
+                <span>{parts[0].trim()}</span>
+                <br />
+                <span>{parts[1].trim()}</span>
+              </>
+            );
+          }
+        } else {
+          // For English, split at "something" to create two lines
+          const parts = headline.split(/(something)/);
+          if (parts.length > 1) {
+            return (
+              <>
+                <span>{parts[0].replace(" / ", "").trim()}</span>
+                <br />
+                <span>{parts.slice(1).join("").trim()}</span>
+              </>
+            );
+          }
+        }
+        return headline;
+      })()}
+    </motion.h2>
+  );
+};
+
+// Contact Section Description Component with Animation
+const ContactSectionDescription = ({ description }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { i18n } = useTranslation();
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex flex-col items-start gap-4 self-end mb-28"
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+    >
+      <div className="w-[56px] h-[56px] rounded-full bg-black flex items-center justify-center shrink-0">
+        <img src={whiteIcon} alt="Icon" className="w-[23px] h-[23px]" />
+      </div>
+      <p className={`leading-[1.6] text-[#1E1E1E] pt-3 font-normal ${i18n.language === 'ta'
+        ? 'text-[14px] max-w-[480px]'
+        : 'text-[14px] max-w-[290px]'
+        }`}>
+        {description}
+      </p>
+    </motion.div>
+  );
+};
+
+// Contact Section Form Component with Animation
+const ContactSectionForm = ({ image, t }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { i18n } = useTranslation();
+
+
+  return (
+    <motion.div
+      ref={ref}
+      className="flex flex-row items-end"
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.8, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+    >
+      {/* Image */}
+      <div className="flex justify-center">
+        <img
+          src={image}
+          alt="Meeting"
+          className="w-[304px] h-[422px] object-cover"
+        />
+      </div>
+
+      {/* Form */}
+      <div className="relative bg-white px-10 py-10 shadow-sm w-[580px] h-[632px]">
+        {/* Red top border */}
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#FF0028]" />
+
+        {/* Form Header */}
+        <div className={i18n.language === 'ta' ? 'mb-14' : 'mb-20'}>
+          <p className={`text-[#8D9194] mb-4 ${i18n.language === 'ta'
+            ? 'text-[16px]'
+            : 'text-[18px]'
+            }`}>
+            ({t("contact.quickContact") || "Quick Contact"})
+          </p>
+          <p className={`text-[#000000] leading-[1.5] ${i18n.language === 'ta'
+            ? 'text-[20px]'
+            : 'text-[24px]'
+            }`}>
+            {t("contact.cta") || "Tell us about your idea, we'd love to build something great."}
+          </p>
+        </div>
+
+        {/* Form */}
+        <form className="space-y-8">
+          {/* Name and Email Row */}
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="text-[16px] text-[#1E1E1E] mb-2 block">
+                {t("contact.name") || "Name"} <span className="text-[#FF0000]">*</span>
+              </label>
+              <input
+                type="text"
+                className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] focus:outline-none focus:border-[#FF0028] transition bg-transparent"
+              />
+            </div>
+            <div>
+              <label className="text-[16px] text-[#1E1E1E] mb-2 block">
+                {t("contact.email") || "Email"} <span className="text-[#FF0000]">*</span>
+              </label>
+              <input
+                type="email"
+                className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] focus:outline-none focus:border-[#FF0028] transition bg-transparent"
+              />
+            </div>
+          </div>
+
+          {/* Project Idea */}
+          <div>
+            <label className="text-[16px] text-[#000000] mb-2 block">
+              {t("contact.projectIdea") || "Your project idea"}
+            </label>
+            <textarea
+              rows={4}
+              className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] resize-none focus:outline-none focus:border-[#FF0028] transition bg-transparent"
+            />
+          </div>
+
+          {/* Privacy Policy Checkbox */}
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="privacy"
+              className="w-4 h-4 accent-[#FF0028] cursor-pointer rounded-sm"
+            />
+            <label htmlFor="privacy" className="text-[16px] text-[#1E1E1E] cursor-pointer">
+              {i18n.language === 'ta' ? (
+                <>
+                  {t("contact.acceptPrivacy") || "எங்கள்"}{" "}
+                  <span className="underline">
+                    {t("contact.privacyPolicyLink") || "தனியுரிமை கொள்கையை ஏற்கவும்"}
+                  </span>
+                </>
+              ) : (
+                <>
+                  {t("contact.acceptPrivacy") || "Accept our"}{" "}
+                  <span className="underline">
+                    {t("contact.privacyPolicyLink") || "privacy policy"}
+                  </span>
+                </>
+              )}
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <div
+            className={`
+    group relative
+    bg-[#F1F1F1] text-white
+    ${i18n.language === 'ta' ? 'w-[270px]' : 'w-[140px]'} h-[45px]
+    pl-[48px] pr-4
+    rounded-full
+    font-normal
+    flex items-center
+    cursor-pointer
+    overflow-hidden
+  `}
+          >
+            {/* Arrow */}
+            <span
+              className="
+      absolute left-[8px] top-1/2 -translate-y-1/2
+      w-8 h-8 rounded-full bg-[#000000]
+      flex items-center justify-center
+      overflow-hidden
+    "
+            >
+              <span className="relative w-5 h-5 overflow-hidden">
+                {/* Default arrow */}
+                <ArrowUpRight
+                  className="
+          block w-5 h-5 text-[#FFFFFF]
+          transition-transform duration-300 ease-out
+          translate-x-0 translate-y-0
+          group-hover:translate-x-full group-hover:-translate-y-full
+        "
+                />
+
+                {/* Hover arrow */}
+                <ArrowUpRight
+                  className="
+          absolute left-[-100%] top-[100%]
+          w-5 h-5 text-[#FFFFFF]
+          transition-transform duration-300 ease-out
+          group-hover:translate-x-full group-hover:-translate-y-full
+        "
+                />
+              </span>
+            </span>
+
+            {/* Flip text */}
+            <span className="relative ml-auto h-[18px] leading-[18px] overflow-hidden text-sm">
+              {/* Default text */}
+              <span
+                className="
+        block leading-[18px]
+        transition-transform duration-300 ease-out
+        translate-y-0
+        group-hover:-translate-y-full
+        text-[#000000]
+      "
+              >
+                {t("contact.submit") || "Submit form"}
+              </span>
+
+              {/* Hover text */}
+              <span
+                className="
+        absolute left-0 top-full
+        block leading-[18px]
+        transition-transform duration-300 ease-out
+        group-hover:-translate-y-full
+        text-[#000000]
+      "
+              >
+                {t("contact.submit") || "Submit form"}
+              </span>
+            </span>
+          </div>
+        </form>
+      </div>
+    </motion.div>
+  );
+};
 
 const Hero = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const testimonials = t("testimonials.items", { returnObjects: true }) || [];
 
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -118,7 +423,7 @@ const Hero = () => {
           scrollEnd="top center"
           delay={0}
           yOffset={30}
-          className="absolute -right-50 -top-25 bottom-0 w-[90%] md:w-4/5 lg:w-4/5 z-0 pointer-events-none"
+          className="absolute -right-20 md:-right-50 -top-10 md:-top-25 bottom-0 w-[120%] sm:w-[100%] md:w-4/5 lg:w-4/5 z-0 pointer-events-none opacity-50 md:opacity-100"
         >
           <img
             src={ellipse}
@@ -128,7 +433,7 @@ const Hero = () => {
         </AnimatedContent>
 
         {/* Hero Section */}
-        <section className="relative min-h-[95vh] flex items-center justify-center px-6 overflow-hidden pb-5 py-5">
+        <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[95vh] flex items-center justify-center px-4 sm:px-6 overflow-hidden pb-5 py-5">
           {/* Main Headline Container - Centered */}
           <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center">
             {/* Discover Our Process - Centered Above Headline */}
@@ -139,28 +444,29 @@ const Hero = () => {
               scrollEnd="top center"
               delay={0.5}
               yOffset={50}
-              className="mb-4 md:mb-6 z-20"
+              className="mb-3 sm:mb-4 md:mb-6 z-20"
             >
-              <div className="bg-[#13171D] text-white px-5 py-2.5 rounded-full text-[16px] font-medium flex items-center gap-2 shine-effect relative">
+              <div className="bg-[#13171D] text-white px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm md:text-[16px] font-medium flex items-center gap-1.5 sm:gap-2 shine-effect relative">
                 <img
                   src={discoverIcon}
                   alt="Discover icon"
-                  className="w-4 h-4 relative z-10"
+                  className="w-3 h-3 sm:w-4 sm:h-4 relative z-10"
                 />
                 <span className="relative z-10">{t('hero.discoverProcess')}</span>
               </div>
             </AnimatedContent>
 
             {/* Main Headline - Centered */}
-            <div className="relative text-center px-4">
+            <div className="relative text-center px-2 sm:px-4">
               <BlurText
-                text={`Creating High-Impact
-Digital Experiences
-With Purpose`}
+                text={t('hero.headline')}
                 delay={100}
                 animateBy="words"
                 direction="top"
-                className="text-[75px]  font-medium leading-[1.15] tracking-tight"
+                className={`font-medium leading-[1.15] tracking-tight ${i18n.language === 'ta'
+                  ? 'text-[28px] sm:text-[36px] md:text-[45px] lg:text-[55px]'
+                  : 'text-[32px] sm:text-[42px] md:text-[56px] lg:text-[75px]'
+                  }`}
                 style={{ color: '#13171D' }}
               />
 
@@ -173,7 +479,7 @@ With Purpose`}
                 scrollEnd="top center"
                 delay={0.3}
                 yOffset={30}
-                className="absolute -top-12 md:-top-16 -right-8 md:-right-4 lg:-right-35 z-20 animate-bounce-custom"
+                className="absolute -top-8 sm:-top-10 md:-top-12 lg:-top-16 -right-4 sm:-right-6 md:-right-8 lg:-right-35 z-20 animate-bounce-custom"
               >
                 <div className="relative">
                   {/* Arrow - Pointing towards center/headline */}
@@ -181,14 +487,14 @@ With Purpose`}
                     <img
                       src={downArrow}
                       alt="Arrow pointing to center"
-                      className="w-4 h-4"
+                      className="w-3 h-3 sm:w-4 sm:h-4"
                     />
                   </div>
                   {/* Pill with neumorphic style */}
-                  <div className="bg-background-secondary text-text w-[108px] h-[44px] rounded-full relative flex items-center justify-center" style={{
+                  <div className="bg-background-secondary text-text w-[90px] sm:w-[100px] md:w-[108px] h-[36px] sm:h-[40px] md:h-[44px] rounded-full relative flex items-center justify-center" style={{
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)'
                   }}>
-                    <span className="text-sm font-medium">{t('hero.branding')}</span>
+                    <span className="text-xs sm:text-sm font-medium">{t('hero.branding')}</span>
                   </div>
                 </div>
               </AnimatedContent>
@@ -201,7 +507,7 @@ With Purpose`}
                 scrollEnd="top center"
                 delay={0.4}
                 yOffset={30}
-                className="absolute -bottom-12 md:-bottom-16 -left-8 md:-left-4 lg:-left-35 z-20 animate-bounce-custom"
+                className="absolute -bottom-8 sm:-bottom-10 md:-bottom-12 lg:-bottom-16 -left-4 sm:-left-6 md:-left-8 lg:-left-35 z-20 animate-bounce-custom"
               >
                 <div className="relative">
                   {/* Arrow - Pointing towards center/headline */}
@@ -209,14 +515,17 @@ With Purpose`}
                     <img
                       src={upArrow}
                       alt="Arrow pointing to center"
-                      className="w-4 h-4"
+                      className="w-3 h-3 sm:w-4 sm:h-4"
                     />
                   </div>
                   {/* Pill with neumorphic style */}
-                  <div className="bg-background-secondary text-text w-[125px] h-[44px] rounded-full relative flex items-center justify-center" style={{
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)'
-                  }}>
-                    <span className="text-sm font-medium">{t('hero.uiuxDesign')}</span>
+                  <div className={`bg-background-secondary text-text h-[36px] sm:h-[40px] md:h-[44px] rounded-full relative flex items-center justify-center ${i18n.language === 'ta'
+                    ? 'w-auto min-w-[140px] sm:min-w-[160px] px-3 sm:px-4'
+                    : 'w-[100px] sm:w-[110px] md:w-[125px]'
+                    }`} style={{
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)'
+                    }}>
+                    <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{t('hero.uiuxDesign')}</span>
                   </div>
                 </div>
               </AnimatedContent>
@@ -225,23 +534,27 @@ With Purpose`}
         </section>
 
         {/* Hero Banner Section */}
-        <section className="relative pt-0 pb-10 px-10">
+        <section className="relative pt-0 pb-6 sm:pb-8 md:pb-10 px-4 sm:px-6 md:px-10">
           <div className="max-w-[1800px] mx-auto">
             {/* Hero Banner Image */}
             <div className="relative flex justify-center">
               <img
                 src={heroBanner}
                 alt="FITFOX Website"
-                className="w-full max-w-[1700px] h-auto object-cover rounded-[20px]"
+                className="w-full max-w-[1700px] h-auto object-cover rounded-[10px] sm:rounded-[15px] md:rounded-[20px]"
               />
               {/* Start Design Button - Overlaid on Image */}
-              <div className="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 z-10">
+              <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-12 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[90%] sm:max-w-none flex justify-center">
                 <AnimatedButton
                   baseColor="#000000"
                   pillColor="#ffffff"
                   hoveredTextColor="#ffffff"
                   pillTextColor="#000000"
-                  className="border-2 border-primary px-6 md:px-8 py-2.5 md:py-3 font-semibold text-sm md:text-base shadow-lg"
+                  className={`border-2 border-primary py-2 sm:py-2.5 md:py-3 font-semibold text-xs sm:text-sm md:text-base shadow-lg whitespace-nowrap ${i18n.language === 'ta'
+                    ? 'px-4 sm:px-6 md:px-8 lg:px-12'
+                    : 'px-4 sm:px-5 md:px-6 lg:px-8'
+                    }`}
+                  key={i18n.language}
                 >
                   {t('hero.startDesign')}
                 </AnimatedButton>
@@ -256,7 +569,7 @@ With Purpose`}
         <div className="max-w-[96%] mx-auto px-6">
           {/* Heading */}
           <h2 className="text-center text-2xl md:text-3xl font-semibold  text-[#13171D] mb-8 md:mb-12">
-            We are Trusted by
+            {t('trustedBy.title')}
           </h2>
 
           {/* Infinite Scroll Container */}
@@ -347,12 +660,18 @@ With Purpose`}
                   <img src={brandingIdentityIcon} alt="Branding Identity" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
                 </div>
                 <div className="flex ml-70">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl  font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left">
+                  <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
+                    ? 'text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    }`}>
                     {t('services.branding.title')}
                   </h3>
                 </div>
                 <div className="flex items-start">
-                  <p className="text-base md:text-lg text-[#3B3B3B] leading-relaxed text-left font-normal">
+                  <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
+                    ? 'text-sm md:text-md'
+                    : 'text-base md:text-md'
+                    }`}>
                     {t('services.branding.description')}
                   </p>
                 </div>
@@ -384,12 +703,18 @@ With Purpose`}
                   <img src={webDesignIcon} alt="Web Design" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
                 </div>
                 <div className="flex ml-70">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl  font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left">
+                  <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
+                    ? 'text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    }`}>
                     {t('services.webDesign.title')}
                   </h3>
                 </div>
                 <div className="flex items-start">
-                  <p className="text-base md:text-lg text-[#3B3B3B] leading-relaxed text-left font-normal">
+                  <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
+                    ? 'text-sm md:text-md'
+                    : 'text-base md:text-lg'
+                    }`}>
                     {t('services.webDesign.description')}
                   </p>
                 </div>
@@ -421,12 +746,18 @@ With Purpose`}
                   <img src={brandGrowthIcon} alt="Brand Growth" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
                 </div>
                 <div className="flex ml-70">
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl  font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left">
+                  <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
+                    ? 'text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    }`}>
                     {t('services.brandGrowth.title')}
                   </h3>
                 </div>
                 <div className="flex items-start">
-                  <p className="text-base md:text-lg text-[#3B3B3B] leading-relaxed text-left font-normal">
+                  <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
+                    ? 'text-sm md:text-md'
+                    : 'text-base md:text-lg'
+                    }`}>
                     {t('services.brandGrowth.description')}
                   </p>
                 </div>
@@ -443,7 +774,10 @@ With Purpose`}
           <div className="mb-12 md:mb-16 relative">
             {/* Header Text with All Portfolio */}
             <div className="flex-1">
-              <h2 className="text-[55px] font-medium text-[#F6F6F9] leading-tight">
+              <h2 className={`font-medium text-[#F6F6F9] leading-tight ${i18n.language === 'ta'
+                ? 'text-[50px]'
+                : 'text-[55px]'
+                }`}>
                 <RevealText
                   animationDuration={0.8}
                   ease="power3.out"
@@ -490,27 +824,39 @@ With Purpose`}
               yOffset={30}
               className="absolute bottom-0 right-0 flex items-center gap-4 md:gap-6"
             >
-              <a
+              <HoverBorderGradient
+                as="a"
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                className="flex items-center justify-center w-full h-full p-0"
+                duration={1}
+                clockwise={true}
                 aria-label="WhatsApp"
               >
-                <img src={social1} alt="WhatsApp" className="w-[49px] h-[49px]" />
-              </a>
-              <a
+                <img src={social1} alt="WhatsApp" className="w-full h-full object-cover rounded-[10px]" />
+              </HoverBorderGradient>
+              <HoverBorderGradient
+                as="a"
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                className="flex items-center justify-center w-full h-full p-0"
+                duration={1}
+                clockwise={true}
                 aria-label="Instagram"
               >
-                <img src={social2} alt="Instagram" className="w-[49px] h-[49px]" />
-              </a>
-              <a
+                <img src={social2} alt="Instagram" className="w-full h-full object-cover rounded-[10px]" />
+              </HoverBorderGradient>
+              <HoverBorderGradient
+                as="a"
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                className="flex items-center justify-center w-full h-full p-0"
+                duration={1}
+                clockwise={true}
                 aria-label="Facebook"
               >
-                <img src={social3} alt="Facebook" className="w-[49px] h-[49px]" />
-              </a>
+                <img src={social3} alt="Facebook" className="w-full h-full object-cover rounded-[10px]" />
+              </HoverBorderGradient>
             </AnimatedContent>
           </div>
 
@@ -654,7 +1000,10 @@ With Purpose`}
           <div className="mb-12 md:mb-16 relative">
             <div className="flex justify-between items-center mb-8">
               <div className="flex-1">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl  font-medium text-[#1E1E1E] leading-tight">
+                <h2 className={`font-medium text-[#1E1E1E] leading-tight ${i18n.language === 'ta'
+                  ? 'text-3xl md:text-4xl lg:text-5xl'
+                  : 'text-4xl md:text-5xl lg:text-6xl'
+                  }`}>
                   <RevealText
                     animationDuration={0.8}
                     ease="power3.out"
@@ -725,7 +1074,10 @@ With Purpose`}
                 delay={0.3}
                 yOffset={30}
               >
-                <p className="text-base md:text-lg text-[#2B2B2B] leading-relaxed font-normal">
+                <p className={`text-[#2B2B2B] leading-relaxed font-normal ${i18n.language === 'ta'
+                  ? 'text-sm md:text-md'
+                  : 'text-base md:text-lg'
+                  }`}>
                   {t('visualSystems.description')}
                 </p>
               </AnimatedContent>
@@ -881,7 +1233,10 @@ With Purpose`}
                       yoyo={false}
                       pauseOnHover={false}
                       disabled={false}
-                      className="text-[45px] text-[#F6F6F9] leading-tight tracking-tight whitespace-pre-line font-medium"
+                      className={`text-[#F6F6F9] leading-tight tracking-tight whitespace-pre-line font-medium ${i18n.language === 'ta'
+                        ? 'text-[34px]'
+                        : 'text-[45px]'
+                        }`}
                     />
                   </div>
 
@@ -935,31 +1290,43 @@ With Purpose`}
                       const width = isCurrent ? 820 : 760;
 
                       return (
-                        <div
+                        <motion.div
                           key={index}
-                          className="absolute transition-[transform,opacity] will-change-transform"
+                          className="absolute"
                           style={{
                             top: 0,
                             left: "50%",
-                            width,
                             maxWidth: "100%",
-                            transform: `
-                          translateX(-50%)
-                          translateY(${translateY}px)
-                          scale(${scale})
-                          rotateX(${rotateX}deg)
-                        `,
                             transformOrigin: "top center",
                             zIndex,
-                            opacity,
                             pointerEvents: isCurrent ? "auto" : "none",
-                            transitionDuration: "600ms",
-                            transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+                          }}
+                          animate={{
+                            x: "-50%",
+                            y: translateY,
+                            scale: scale,
+                            rotateX: rotateX,
+                            opacity: opacity,
+                            width: width,
+                          }}
+                          transition={{
+                            duration: 0.6,
+                            ease: [0.4, 0, 0.2, 1],
                           }}
                         >
-                          {/* Card */}
-                          <div
-                            className="
+                          <motion.div
+                            className="w-full h-full"
+                            animate={{
+                              filter: `blur(${blur}px)`,
+                            }}
+                            transition={{
+                              duration: 0.6,
+                              ease: [0.4, 0, 0.2, 1],
+                            }}
+                          >
+                            {/* Card */}
+                            <div
+                              className="
                           relative
                           bg-[#131416]/90
                           backdrop-blur-sm
@@ -968,45 +1335,37 @@ With Purpose`}
                           border border-[#202123]
                           shadow-[0_20px_30px_rgba(0,0,0,0.10)]
                         "
-                            style={{ height: "400px" }}
-                          >
-                            {/* Red line */}
-                            <div className="absolute top-0 left-10 right-10 h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-transparent rounded-full" />
+                              style={{ height: "400px" }}
+                            >
+                              {/* Red line */}
+                              <div className="absolute top-0 left-10 right-10 h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-transparent rounded-full" />
 
-                            {/* Stars */}
-                            <div className="flex justify-center gap-2 mb-8">
-                              {[1, 2, 3, 4, 5].map((i) => (
-                                <img
-                                  key={i}
-                                  src={starOutlineIcon}
-                                  alt="Star"
-                                  className="w-7 h-7"
-                                  style={{
-                                    filter:
-                                      i <= testimonial.rating
-                                        ? "brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(3450%) hue-rotate(5deg)"
-                                        : "brightness(0) saturate(100%) invert(25%)",
-                                  }}
-                                />
-                              ))}
+                              {/* Stars */}
+                              <div className="flex justify-center gap-2 mb-8">
+                                {[1, 2, 3, 4, 5].map((i) => (
+                                  <img
+                                    key={i}
+                                    src={starOutlineIcon}
+                                    alt="Star"
+                                    className="w-7 h-7"
+                                    style={{
+                                      filter:
+                                        i <= testimonial.rating
+                                          ? "brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(3450%) hue-rotate(5deg)"
+                                          : "brightness(0) saturate(100%) invert(25%)",
+                                    }}
+                                  />
+                                ))}
+                              </div>
+
+                              {/* Quote */}
+                              <TestimonialQuote quote={testimonial.quote} />
+
+                              {/* Author */}
+                              <TestimonialAuthor name={testimonial.name} title={testimonial.title} />
                             </div>
-
-                            {/* Quote */}
-                            <p className="text-[20px] text-[#F6F6F9] leading-relaxed text-center max-w-[520px] mx-auto mb-10 font-normal tracking-[-0.01em]">
-                              "{testimonial.quote}"
-                            </p>
-
-                            {/* Author */}
-                            <div className="text-center">
-                              <p className="text-white font-medium text-[18px]">
-                                {testimonial.name}
-                              </p>
-                              <p className="text-[#C5C5C5] text-[15px] font-normal">
-                                {testimonial.title}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                          </motion.div>
+                        </motion.div>
 
                       );
                     })}
@@ -1079,7 +1438,10 @@ With Purpose`}
                           </RevealText>
                         </p>
 
-                        <p className="text-[40px] font-medium text-[#F6F6F9] leading-[1.25] tracking-tight mb-6 whitespace-pre-line">
+                        <p className={`font-medium text-[#F6F6F9] leading-[1.25] tracking-tight mb-6 whitespace-pre-line ${i18n.language === 'ta'
+                          ? 'text-[32px]'
+                          : 'text-[40px]'
+                          }`}>
                           <RevealText
                             animationDuration={0.8}
                             ease="power3.out"
@@ -1134,122 +1496,18 @@ With Purpose`}
       </section>
 
       {/* Contact Section */}
-      <section className="relative bg-[#EBEBEB] py-20">
-        <div className="max-w-[1400px] mx-auto px-12">
-          <div className="relative">
+      <section className="relative pt-14 md:pt-24 pb-0 bg-[#EBEBEB]">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Headline */}
+          <ContactSectionHeadline headline={t("contact.headline") || "Ready to build something impactful?"} />
+          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] items-start">
+            {/* LEFT SIDE - Description with Icon */}
+            <ContactSectionDescription
+              description={t("contact.description") || "Whether you're building a brand, launching a website or growing a product, we're here to help. Share your goals - We'll handle the strategy."}
+            />
 
-            {/* LEFT SIDE - Headline and Description */}
-            <div className="absolute left-0 top-0 max-w-[420px]">
-              {/* Headline */}
-              <h2 className="text-[52px] leading-[1.1] font-normal text-[#1E1E1E] mb-32">
-                {t("contact.headline") || "Ready to build something impactful?"}
-              </h2>
-
-              {/* Description with Icon */}
-              <div className="flex items-start gap-4">
-                <div className="w-[52px] h-[52px] rounded-full bg-black flex items-center justify-center shrink-0">
-                  <Zap className="w-5 h-5 text-white" />
-                </div>
-                <p className="text-[14px] leading-[1.6] text-[#1E1E1E] pt-3">
-                  {t("contact.description") || "Whether you're building a brand, launching a website or growing a product, we're here to help. Share your goals - We'll handle the strategy."}
-                </p>
-              </div>
-            </div>
-
-            {/* CENTER - Image */}
-            <div className="flex justify-center py-8">
-              <img
-                src={contactImage || "/api/placeholder/280/360"}
-                alt="Meeting"
-                className="w-[280px] h-[360px] object-cover rounded-lg"
-              />
-            </div>
-
-            {/* RIGHT SIDE - Form */}
-            <div className="absolute right-0 top-0 w-[480px]">
-              <div className="relative bg-white px-10 py-10 shadow-sm">
-
-                {/* Red top border */}
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#FF0028]" />
-
-                {/* Form Header */}
-                <div className="mb-10">
-                  <p className="text-[11px] text-[#9B9B9B] mb-4">
-                    ({t("contact.quickContact") || "Quick Contact"})
-                  </p>
-                  <p className="text-[15px] text-[#1E1E1E] leading-[1.5]">
-                    {t("contact.cta") || "Tell us about your idea, we'd love to build something great."}
-                  </p>
-                </div>
-
-                {/* Form */}
-                <form className="space-y-8">
-
-                  {/* Name and Email Row */}
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <label className="text-[11px] text-[#1E1E1E] mb-2 block">
-                        {t("contact.name") || "Name"} <span className="text-[#FF0028]">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="w-full border-b border-[#E0E0E0] pb-2 text-[13px] focus:outline-none focus:border-black transition bg-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-[11px] text-[#1E1E1E] mb-2 block">
-                        {t("contact.email") || "Email"} <span className="text-[#FF0028]">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        className="w-full border-b border-[#E0E0E0] pb-2 text-[13px] focus:outline-none focus:border-black transition bg-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Project Idea */}
-                  <div>
-                    <label className="text-[11px] text-[#1E1E1E] mb-2 block">
-                      {t("contact.projectIdea") || "Your project idea"}
-                    </label>
-                    <textarea
-                      rows={2}
-                      className="w-full border-b border-[#E0E0E0] pb-2 text-[13px] resize-none focus:outline-none focus:border-black transition bg-transparent"
-                    />
-                  </div>
-
-                  {/* Privacy Policy Checkbox */}
-                  <div className="flex items-center gap-2 pt-2">
-                    <input
-                      type="checkbox"
-                      id="privacy"
-                      className="w-4 h-4 accent-black cursor-pointer rounded-sm"
-                    />
-                    <label htmlFor="privacy" className="text-[11px] text-[#1E1E1E] cursor-pointer">
-                      Accept our{" "}
-                      <span className="underline">
-                        {t("contact.privacyPolicyLink") || "privacy policy"}
-                      </span>
-                    </label>
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className="flex items-center gap-3 bg-white border border-black px-5 py-3 rounded-full hover:bg-black hover:text-white transition-all duration-300 group mt-4"
-                  >
-                    <span className="w-8 h-8 rounded-full bg-black group-hover:bg-white flex items-center justify-center transition-all duration-300">
-                      <ArrowRight className="w-4 h-4 text-white group-hover:text-black transition-all duration-300" />
-                    </span>
-                    <span className="text-[13px]">
-                      {t("contact.submit") || "Submit form"}
-                    </span>
-                  </button>
-
-                </form>
-              </div>
-            </div>
-
+            {/* RIGHT SIDE - Image and Form */}
+            <ContactSectionForm image={contactImage} t={t} />
           </div>
         </div>
       </section>

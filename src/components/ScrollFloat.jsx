@@ -19,12 +19,18 @@ const ScrollFloat = ({
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
-    return text.split('').map((char, index) => {
+    // Use Intl.Segmenter for proper grapheme cluster handling (especially for Tamil)
+    const segmenter = new Intl.Segmenter('ta', { granularity: 'grapheme' });
+    const segments = Array.from(segmenter.segment(text));
+    let keyIndex = 0;
+    
+    return segments.map((segment, index) => {
+      const char = segment.segment;
       if (char === '\n') {
-        return <br key={index} />;
+        return <br key={`br-${keyIndex++}`} />;
       }
       return (
-        <span className="inline-block word" key={index}>
+        <span className="inline-block word" key={`char-${keyIndex++}`}>
           {char === ' ' ? '\u00A0' : char}
         </span>
       );

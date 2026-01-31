@@ -73,11 +73,11 @@ const AnimatedButton = ({
     window.addEventListener('resize', onResize);
 
     if (document.fonts?.ready) {
-      document.fonts.ready.then(layout).catch(() => {});
+      document.fonts.ready.then(layout).catch(() => { });
     }
 
     return () => window.removeEventListener('resize', onResize);
-  }, [ease]);
+  }, [ease, children]);
 
   const handleEnter = () => {
     const tl = tlRef.current;

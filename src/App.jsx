@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 import CursorFollower from './components/CursorFollower';
+import ScrollToTop from './components/ScrollToTop';
 import './App.css';
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
       <Header />
       <Hero />
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function CountUp({
         stiffness
     });
 
-    const isInView = useInView(ref, { once: true, margin: '0px' });
+    const isInView = useInView(ref, { once: false, margin: '0px' });
 
     const getDecimalPlaces = num => {
         const str = num.toString();
@@ -67,9 +67,14 @@ export default function CountUp({
 
     useEffect(() => {
         if (isInView && startWhen) {
+            // Reset to initial value first
+            const initialValue = direction === 'down' ? to : from;
+            motionValue.set(initialValue);
+            
             if (typeof onStart === 'function') onStart();
 
             const timeoutId = setTimeout(() => {
+                // Animate to target value
                 motionValue.set(direction === 'down' ? from : to);
             }, delay * 1000);
 
@@ -84,6 +89,9 @@ export default function CountUp({
                 clearTimeout(timeoutId);
                 clearTimeout(durationTimeoutId);
             };
+        } else if (!isInView) {
+            // Reset to initial value when leaving view so it can animate again
+            motionValue.set(direction === 'down' ? to : from);
         }
     }, [isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
 

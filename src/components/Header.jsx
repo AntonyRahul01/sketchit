@@ -1,7 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Globe } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import logo from '../assets/images/logo.png';
+import englishIcon from '../assets/icons/english.svg';
+import tamilIcon from '../assets/icons/tamil.svg';
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -12,9 +15,8 @@ const Header = () => {
   const langCloseTimeoutRef = useRef(null);
 
   const languages = [
-    { code: 'en', name: 'EN' },
-    { code: 'es', name: 'ES' },
-    { code: 'fr', name: 'FR' },
+    { code: 'en', name: 'English', icon: englishIcon },
+    { code: 'ta', name: 'தமிழ்', icon: tamilIcon },
   ];
 
   const changeLanguage = (langCode) => {
@@ -83,7 +85,7 @@ const Header = () => {
           <img
             src={logo}
             alt="Sketchit"
-            className="h-6 md:h-7 w-auto object-contain ml-18"
+            className="h-7 md:h-8 w-auto object-contain ml-18"
           />
         </div>
 
@@ -93,7 +95,7 @@ const Header = () => {
           <div className="hidden lg:flex items-center gap-1">
             <a
               href="#home"
-              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[16px] font-[400] overflow-hidden"
+              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
             >
               <span className="relative block h-[20px] leading-[20px] overflow-hidden">
                 <span className="block leading-[20px] transition-transform duration-300 ease-out translate-y-0 group-hover:-translate-y-full">
@@ -106,7 +108,7 @@ const Header = () => {
             </a>
             <a
               href="#solutions"
-              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[16px] font-[400] overflow-hidden"
+              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
             >
               <span className="relative block h-[20px] leading-[20px] overflow-hidden">
                 <span className="block leading-[20px] transition-transform duration-300 ease-out translate-y-0 group-hover:-translate-y-full">
@@ -119,7 +121,7 @@ const Header = () => {
             </a>
             <a
               href="#work"
-              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[16px] font-[400] overflow-hidden"
+              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
             >
               <span className="relative block h-[20px] leading-[20px] overflow-hidden">
                 <span className="block leading-[20px] transition-transform duration-300 ease-out translate-y-0 group-hover:-translate-y-full">
@@ -132,7 +134,7 @@ const Header = () => {
             </a>
             <a
               href="#contact"
-              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[16px] font-[400] overflow-hidden"
+              className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
             >
               <span className="relative block h-[20px] leading-[20px] overflow-hidden">
                 <span className="block leading-[20px] transition-transform duration-300 ease-out translate-y-0 group-hover:-translate-y-full">
@@ -164,61 +166,108 @@ const Header = () => {
               onKeyDown={(e) => {
                 if (e.key === 'Escape') closeLangImmediately();
               }}
-              className="group inline-flex items-center gap-2 h-[36px] px-3 rounded-full bg-white/60 hover:bg-white transition-colors border border-[#E7E7EA] text-[#13171D]"
+              className="group inline-flex items-center gap-2 h-[36px] px-3 rounded-full bg-white/60 hover:bg-white transition-colors border border-[#E7E7EA] text-[#13171D] cursor-pointer"
               aria-haspopup="menu"
               aria-expanded={isLangOpen}
             >
-              <Globe className="w-4 h-4" />
+              <img
+                src={languages.find((lang) => lang.code === i18n.language)?.icon || englishIcon}
+                alt="Language"
+                className="w-4 h-4 object-contain flex-shrink-0"
+                style={{ width: '16px', height: '16px' }}
+              />
               <span className="text-[14px] font-normal">
-                {languages.find((lang) => lang.code === i18n.language)?.name || 'EN'}
+                {languages.find((lang) => lang.code === i18n.language)?.name || 'English'}
               </span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform ${isLangOpen ? 'rotate-180' : ''}`}
               />
             </button>
 
-            {isLangOpen && (
-              <div
-                role="menu"
-                className="absolute right-0 mt-2 min-w-[120px] bg-white border border-[#E7E7EA] rounded-[14px] shadow-lg overflow-hidden z-50"
-                onMouseEnter={openLang}
-                onMouseLeave={() => closeLangWithDelay(160)}
-              >
-                {languages.map((lang) => (
-                  <button
-                    type="button"
-                    role="menuitem"
-                    key={lang.code}
-                    onMouseDown={(e) => e.preventDefault()}
-                    onClick={() => changeLanguage(lang.code)}
-                    className={`w-full px-4 py-2 text-left transition-colors text-[14px] ${i18n.language === lang.code
-                      ? 'bg-[#F1F1F1] text-[#13171D]'
-                      : 'hover:bg-[#F6F6F9] text-[#13171D]'
-                      }`}
-                  >
-                    {lang.name}
-                  </button>
-                ))}
-              </div>
-            )}
+            <AnimatePresence>
+              {isLangOpen && (
+                <motion.div
+                  role="menu"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute right-0 mt-2 min-w-[150px] bg-white/95 backdrop-blur-md border border-[#E0E0E0] rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] overflow-hidden z-50"
+                  onMouseEnter={openLang}
+                  onMouseLeave={() => closeLangWithDelay(160)}
+                >
+                  <div className="py-1.5">
+                    {languages.map((lang) => (
+                      <button
+                        type="button"
+                        role="menuitem"
+                        key={lang.code}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => changeLanguage(lang.code)}
+                        className={`w-full px-5 py-2.5 mx-1.5 text-left transition-all duration-200 text-[14px] font-medium relative rounded-xl cursor-pointer ${i18n.language === lang.code
+                          ? 'text-white'
+                          : 'text-[#13171D] hover:bg-[#F5F5F5]'
+                          }`}
+                      >
+                        {i18n.language === lang.code && (
+                          <div
+                            className="absolute inset-0 bg-[#13171D] rounded-xl"
+                          />
+                        )}
+                        <span className="relative z-10 flex items-center justify-between gap-3">
+                          <span className="flex items-center gap-2.5">
+                            <img
+                              src={lang.icon}
+                              alt={lang.name}
+                              className={`object-contain flex-shrink-0 ${i18n.language === lang.code
+                                ? 'brightness-0 invert'
+                                : ''
+                                }`}
+                              style={{ width: '20px', height: '20px' }}
+                            />
+                            <span className="font-medium">{lang.name}</span>
+                          </span>
+                          {i18n.language === lang.code && (
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2.5}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          )}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Book a Call Button - Black with white circle arrow */}
           <div
-            className="
+            className={`
     group relative
     bg-primary text-white
-    w-[140px] h-[45px]
+    w-auto h-[45px]
+    ${i18n.language === 'ta' ? 'min-w-[180px]' : 'min-w-[140px]'}
     px-4 pr-[48px]
     rounded-full
     font-normal
-    flex items-center
+    flex items-center justify-center
     cursor-pointer
     overflow-hidden
-  "
+  `}
           >
             {/* Flip text */}
-            <span className="relative mx-auto h-[18px] leading-[18px] overflow-hidden text-sm">
+            <span className="relative w-full text-center h-[18px] leading-[18px] overflow-hidden text-sm whitespace-nowrap">
               {/* Default text */}
               <span
                 className="
@@ -253,11 +302,11 @@ const Header = () => {
       overflow-hidden
     "
             >
-              <span className="relative w-4 h-4 overflow-hidden">
+              <span className="relative w-5 h-5 overflow-hidden">
                 {/* Default arrow */}
                 <ArrowUpRight
                   className="
-          block w-4 h-4 text-primary
+          block w-5 h-5 text-primary
           transition-transform duration-300 ease-out
           translate-x-0 translate-y-0
           group-hover:translate-x-full group-hover:-translate-y-full
@@ -268,7 +317,7 @@ const Header = () => {
                 <ArrowUpRight
                   className="
           absolute left-[-100%] top-[100%]
-          w-4 h-4 text-primary
+          w-5 h-5 text-primary
           transition-transform duration-300 ease-out
           group-hover:translate-x-full group-hover:-translate-y-full
         "
