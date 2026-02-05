@@ -66,6 +66,8 @@
     font-family: "InterTight", system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   body {
@@ -77,16 +79,18 @@
     /* Hide default cursor to show cursor follower */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
-  /* Text selection colors - Red accent that works on both light and dark */
+  /* Text selection colors - Orange accent that works on both light and dark */
   ::selection {
-    background-color: rgba(255, 0, 40, 0.3);
+    background-color: rgba(236, 91, 51, 0.3);
     color: inherit;
   }
 
   ::-moz-selection {
-    background-color: rgba(255, 0, 40, 0.3);
+    background-color: rgba(236, 91, 51, 0.3);
     color: inherit;
   }
 
@@ -95,7 +99,7 @@
   .text-white::-moz-selection,
   [class*="text-white"] ::selection,
   [class*="text-white"]::-moz-selection {
-    background-color: rgba(255, 0, 40, 0.4);
+    background-color: rgba(236, 91, 51, 0.4);
     color: #ffffff;
   }
 }
@@ -178,7 +182,7 @@
     position: fixed;
     width: 15px;
     height: 15px;
-    background-color: #000000;
+    background-color: #FF0028;
     border-radius: 50%;
     pointer-events: none;
     will-change: transform;

@@ -34,7 +34,7 @@
     "title": "We are Trusted by"
   },
   "portfolio": {
-    "header": "At Sketchit, design is only the start.\nCampaigns are just the tools. Impact is\nthe mission.",
+    "header": "At Sketchit, design is only the start.\nCampaigns are just the tools.\nImpact is the mission.",
     "allPortfolio": "All Portfolio",
     "projectTitle": "Fitfox Website Design"
   },
@@ -85,7 +85,11 @@
     "projectIdea": "Your project idea",
     "acceptPrivacy": "Accept our",
     "privacyPolicyLink": "privacy policy",
-    "submit": "Submit form"
+    "submit": "Submit form",
+    "submitting": "Submitting...",
+    "successMessage": "Thank you for your message!",
+    "successSubMessage": "We'll get back to you soon.",
+    "privacyRequired": "Please accept the privacy policy to continue."
   },
   "footer": {
     "tagline": "Let's Create Work\nThat Lasts",
@@ -100,5 +104,49 @@
     "location": "Zurich Switzerland",
     "privacyPolicy": "Privacy Policy",
     "copyright": "© Sketchit 2026. All Rights Reserved"
+  },
+  "privacyPolicy": {
+    "backToHome": "Back to Home",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated:",
+    "lastUpdatedDate": "January 2025",
+    "introduction": {
+      "title": "Introduction",
+      "content1": "At Sketchit, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.",
+      "content2": "By using our website or services, you agree to the collection and use of information in accordance with this policy."
+    },
+    "informationWeCollect": {
+      "title": "Information We Collect",
+      "content1": "We may collect the following types of information:",
+      "item1": "Personal Information: Name, email address, phone number, and other contact details you provide when contacting us or using our services.",
+      "item2": "Usage Data: Information about how you access and use our website, including your IP address, browser type, pages visited, and time spent on pages.",
+      "item3": "Cookies and Tracking Technologies: We use cookies and similar tracking technologies to track activity on our website and store certain information.",
+      "item4": "Communication Data: Any communications you send to us, including emails, form submissions, and other correspondence."
+    },
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "content1": "We use the information we collect for various purposes:",
+      "item1": "To provide, maintain, and improve our services and website functionality.",
+      "item2": "To communicate with you, respond to your inquiries, and provide customer support.",
+      "item3": "To send you marketing communications, newsletters, and updates about our services (with your consent).",
+      "item4": "To analyze usage patterns, monitor website performance, and improve user experience."
+    },
+    "dataProtection": {
+      "title": "Data Protection",
+      "content": "We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security."
+    },
+    "yourRights": {
+      "title": "Your Rights",
+      "content": "You have the following rights regarding your personal information:",
+      "item1": "Access: You can request access to the personal information we hold about you.",
+      "item2": "Correction: You can request correction of any inaccurate or incomplete information.",
+      "item3": "Deletion: You can request deletion of your personal information, subject to certain legal obligations.",
+      "item4": "Objection: You can object to the processing of your personal information for certain purposes."
+    },
+    "contactUs": {
+      "title": "Contact Us",
+      "content": "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:",
+      "email": "Email:"
+    }
   }
 }

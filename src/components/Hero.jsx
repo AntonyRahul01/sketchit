@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ellipse from '../assets/images/ellipse.png';
 import upArrow from '../assets/images/uparrow.png';
 import downArrow from '../assets/images/downarrow.png';
-import heroBanner from '../assets/images/herobanner.png';
+import heroBanner from '../assets/images/herobanner.webp';
+import mobileHeroBanner from '../assets/images/mherobanner.webp';
 import discoverIcon from '../assets/images/discover.png';
 import logo1 from '../assets/images/img1.png';
 import logo2 from '../assets/images/img2.png';
@@ -13,19 +14,15 @@ import logo5 from '../assets/images/img5.png';
 import brandingIdentityIcon from '../assets/images/brandingidentity.png';
 import webDesignIcon from '../assets/images/webdesign.png';
 import brandGrowthIcon from '../assets/images/brandgrowth.png';
-import portfolio1 from '../assets/images/portfolio1.png';
-import portfolio2 from '../assets/images/portfolio2.png';
-import portfolio3 from '../assets/images/portfolio3.png';
-import portfolio4 from '../assets/images/portfolio4.png';
+import portfolio1 from '../assets/images/portfolio1.webp';
+import portfolio2 from '../assets/images/portfolio2.webp';
+import portfolio3 from '../assets/images/portfolio3.webp';
+import portfolio4 from '../assets/images/portfolio4.webp';
 import social1 from '../assets/images/social1.png';
 import social2 from '../assets/images/social2.png';
 import social3 from '../assets/images/social3.png';
-import visualDesign from '../assets/images/visualdesign.png';
+import visualDesign from '../assets/images/visualdesign.webp';
 import visualDesignLogo from '../assets/images/visualdesignlogo.png';
-import ceoImage from '../assets/images/ceo.png';
-import starOutlineIcon from '../assets/icons/staroutline.svg';
-import arrowLeftIcon from '../assets/icons/arrowleft.svg';
-import arrowRightIcon from '../assets/icons/arrowright.svg';
 import LogoLoop from './LogoLoop';
 import AnimatedButton from './AnimatedButton';
 import ScrollFloat from './ScrollFloat';
@@ -34,326 +31,16 @@ import BlurText from './BlurText';
 import TiltedCard from './TiltedCard';
 import { HoverBorderGradient } from './HoverBorderGradient';
 import RevealText from './RevealText';
-import ShinyText from './ShinyText';
-import CountUp from './CountUp';
+import TestimonialsCeoSection from './TestimonialsCeoSection';
 import hoverVideo1 from '../assets/videos/hovervdo1.mp4';
 import hoverVideo2 from '../assets/videos/hovervdo2.mp4';
 import hoverVideo3 from '../assets/videos/hovervdo3.mp4';
 import { ArrowRight, ArrowUpRight, MessageCircle, Instagram, Facebook, Zap } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useInView } from 'motion/react';
-import contactImage from '../assets/images/contact.png';
-import whiteIcon from '../assets/images/whiteicon.png';
-
-// Testimonial Quote Component with Animation
-const TestimonialQuote = ({ quote }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
-
-  return (
-    <motion.p
-      ref={ref}
-      className="text-[20px] text-[#F6F6F9] leading-relaxed text-center max-w-[520px] mx-auto mb-10 font-normal tracking-[-0.01em]"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-    >
-      "{quote}"
-    </motion.p>
-  );
-};
-
-// Testimonial Author Component with Animation
-const TestimonialAuthor = ({ name, title }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      className="text-center"
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-    >
-      <p className="text-white font-medium text-[18px]">
-        {name}
-      </p>
-      <p className="text-[#C5C5C5] text-[15px] font-normal">
-        {title}
-      </p>
-    </motion.div>
-  );
-};
-
-// Contact Section Headline Component with Animation
-const ContactSectionHeadline = ({ headline }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
-  const { i18n } = useTranslation();
-
-  return (
-    <motion.h2
-      ref={ref}
-      className={`leading-[1.1] font-medium text-[#1E1E1E] text-left ${i18n.language === 'ta'
-        ? 'text-[48px]'
-        : 'text-[60px]'
-        }`}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-    >
-      {(() => {
-        // For Tamil, split at " / " to create two lines
-        if (i18n.language === 'ta') {
-          if (headline.includes(' / ')) {
-            const parts = headline.split(' / ');
-            return (
-              <>
-                <span>{parts[0].trim()}</span>
-                <br />
-                <span>{parts[1].trim()}</span>
-              </>
-            );
-          }
-        } else {
-          // For English, split at "something" to create two lines
-          const parts = headline.split(/(something)/);
-          if (parts.length > 1) {
-            return (
-              <>
-                <span>{parts[0].replace(" / ", "").trim()}</span>
-                <br />
-                <span>{parts.slice(1).join("").trim()}</span>
-              </>
-            );
-          }
-        }
-        return headline;
-      })()}
-    </motion.h2>
-  );
-};
-
-// Contact Section Description Component with Animation
-const ContactSectionDescription = ({ description }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
-  const { i18n } = useTranslation();
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex flex-col items-start gap-4 self-end mb-28"
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-    >
-      <div className="w-[56px] h-[56px] rounded-full bg-black flex items-center justify-center shrink-0">
-        <img src={whiteIcon} alt="Icon" className="w-[23px] h-[23px]" />
-      </div>
-      <p className={`leading-[1.6] text-[#1E1E1E] pt-3 font-normal ${i18n.language === 'ta'
-        ? 'text-[14px] max-w-[480px]'
-        : 'text-[14px] max-w-[290px]'
-        }`}>
-        {description}
-      </p>
-    </motion.div>
-  );
-};
-
-// Contact Section Form Component with Animation
-const ContactSectionForm = ({ image, t }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
-  const { i18n } = useTranslation();
-
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex flex-row items-end"
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
-    >
-      {/* Image */}
-      <div className="flex justify-center">
-        <img
-          src={image}
-          alt="Meeting"
-          className="w-[304px] h-[422px] object-cover"
-        />
-      </div>
-
-      {/* Form */}
-      <div className="relative bg-white px-10 py-10 shadow-sm w-[580px] h-[632px]">
-        {/* Red top border */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#FF0028]" />
-
-        {/* Form Header */}
-        <div className={i18n.language === 'ta' ? 'mb-14' : 'mb-20'}>
-          <p className={`text-[#8D9194] mb-4 ${i18n.language === 'ta'
-            ? 'text-[16px]'
-            : 'text-[18px]'
-            }`}>
-            ({t("contact.quickContact") || "Quick Contact"})
-          </p>
-          <p className={`text-[#000000] leading-[1.5] ${i18n.language === 'ta'
-            ? 'text-[20px]'
-            : 'text-[24px]'
-            }`}>
-            {t("contact.cta") || "Tell us about your idea, we'd love to build something great."}
-          </p>
-        </div>
-
-        {/* Form */}
-        <form className="space-y-8">
-          {/* Name and Email Row */}
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <label className="text-[16px] text-[#1E1E1E] mb-2 block">
-                {t("contact.name") || "Name"} <span className="text-[#FF0000]">*</span>
-              </label>
-              <input
-                type="text"
-                className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] focus:outline-none focus:border-[#FF0028] transition bg-transparent"
-              />
-            </div>
-            <div>
-              <label className="text-[16px] text-[#1E1E1E] mb-2 block">
-                {t("contact.email") || "Email"} <span className="text-[#FF0000]">*</span>
-              </label>
-              <input
-                type="email"
-                className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] focus:outline-none focus:border-[#FF0028] transition bg-transparent"
-              />
-            </div>
-          </div>
-
-          {/* Project Idea */}
-          <div>
-            <label className="text-[16px] text-[#000000] mb-2 block">
-              {t("contact.projectIdea") || "Your project idea"}
-            </label>
-            <textarea
-              rows={4}
-              className="w-full border-b border-[#E0E0E0] pb-2 text-[14px] resize-none focus:outline-none focus:border-[#FF0028] transition bg-transparent"
-            />
-          </div>
-
-          {/* Privacy Policy Checkbox */}
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="privacy"
-              className="w-4 h-4 accent-[#FF0028] cursor-pointer rounded-sm"
-            />
-            <label htmlFor="privacy" className="text-[16px] text-[#1E1E1E] cursor-pointer">
-              {i18n.language === 'ta' ? (
-                <>
-                  {t("contact.acceptPrivacy") || "எங்கள்"}{" "}
-                  <span className="underline">
-                    {t("contact.privacyPolicyLink") || "தனியுரிமை கொள்கையை ஏற்கவும்"}
-                  </span>
-                </>
-              ) : (
-                <>
-                  {t("contact.acceptPrivacy") || "Accept our"}{" "}
-                  <span className="underline">
-                    {t("contact.privacyPolicyLink") || "privacy policy"}
-                  </span>
-                </>
-              )}
-            </label>
-          </div>
-
-          {/* Submit Button */}
-          <div
-            className={`
-    group relative
-    bg-[#F1F1F1] text-white
-    ${i18n.language === 'ta' ? 'w-[270px]' : 'w-[140px]'} h-[45px]
-    pl-[48px] pr-4
-    rounded-full
-    font-normal
-    flex items-center
-    cursor-pointer
-    overflow-hidden
-  `}
-          >
-            {/* Arrow */}
-            <span
-              className="
-      absolute left-[8px] top-1/2 -translate-y-1/2
-      w-8 h-8 rounded-full bg-[#000000]
-      flex items-center justify-center
-      overflow-hidden
-    "
-            >
-              <span className="relative w-5 h-5 overflow-hidden">
-                {/* Default arrow */}
-                <ArrowUpRight
-                  className="
-          block w-5 h-5 text-[#FFFFFF]
-          transition-transform duration-300 ease-out
-          translate-x-0 translate-y-0
-          group-hover:translate-x-full group-hover:-translate-y-full
-        "
-                />
-
-                {/* Hover arrow */}
-                <ArrowUpRight
-                  className="
-          absolute left-[-100%] top-[100%]
-          w-5 h-5 text-[#FFFFFF]
-          transition-transform duration-300 ease-out
-          group-hover:translate-x-full group-hover:-translate-y-full
-        "
-                />
-              </span>
-            </span>
-
-            {/* Flip text */}
-            <span className="relative ml-auto h-[18px] leading-[18px] overflow-hidden text-sm">
-              {/* Default text */}
-              <span
-                className="
-        block leading-[18px]
-        transition-transform duration-300 ease-out
-        translate-y-0
-        group-hover:-translate-y-full
-        text-[#000000]
-      "
-              >
-                {t("contact.submit") || "Submit form"}
-              </span>
-
-              {/* Hover text */}
-              <span
-                className="
-        absolute left-0 top-full
-        block leading-[18px]
-        transition-transform duration-300 ease-out
-        group-hover:-translate-y-full
-        text-[#000000]
-      "
-              >
-                {t("contact.submit") || "Submit form"}
-              </span>
-            </span>
-          </div>
-        </form>
-      </div>
-    </motion.div>
-  );
-};
+import ContactSection from './ContactSection';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
-  const testimonials = t("testimonials.items", { returnObjects: true }) || [];
-
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [isAnimating, setIsAnimating] = React.useState(false);
 
   // Services hover preview video (desktop only)
   const [isServicesPreviewOpen, setIsServicesPreviewOpen] = React.useState(false);
@@ -385,23 +72,19 @@ const Hero = () => {
     }
   }, [isServicesPreviewOpen, hoveredServiceIndex]);
 
-  const handlePrevious = () => {
-    if (isAnimating || testimonials.length === 0) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
-    setTimeout(() => setIsAnimating(false), 600);
-  };
+  // Track window size for responsive arrow transforms
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  const handleNext = () => {
-    if (isAnimating || testimonials.length === 0) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-    setTimeout(() => setIsAnimating(false), 600);
-  };
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
 
   const logos = [
@@ -423,17 +106,19 @@ const Hero = () => {
           scrollEnd="top center"
           delay={0}
           yOffset={30}
-          className="absolute -right-20 md:-right-50 -top-10 md:-top-25 bottom-0 w-[120%] sm:w-[100%] md:w-4/5 lg:w-4/5 z-0 pointer-events-none opacity-50 md:opacity-100"
+          className="absolute -right-20 sm:-right-30 md:-right-30 lg:-right-50 top-0 sm:top-0 md:-top-2 lg:-top-25 w-[100%] sm:w-[100%] md:w-4/5 lg:w-4/5 z-0 pointer-events-none opacity-50 md:opacity-100 overflow-hidden"
+          style={{ maxHeight: '100vh', height: 'auto' }}
         >
           <img
             src={ellipse}
             alt="Decorative ellipse"
-            className="w-full h-full object-contain object-right"
+            className="w-full h-full object-contain object-[100%_0%] md:object-right"
+            style={{ maxHeight: '100%' }}
           />
         </AnimatedContent>
 
         {/* Hero Section */}
-        <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[95vh] flex items-center justify-center px-4 sm:px-6 overflow-hidden pb-5 py-5">
+        <section className="relative min-h-[60vh] sm:min-h-[80vh] md:min-h-[60vh] lg:min-h-[90vh] flex items-center justify-center px-4 sm:px-6 overflow-x-hidden pt-0 pb-0 sm:pt-0 sm:pb-0 md:pt-0 md:pb-0 lg:pt-0 lg:pb-0">
           {/* Main Headline Container - Centered */}
           <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center justify-center">
             {/* Discover Our Process - Centered Above Headline */}
@@ -444,7 +129,7 @@ const Hero = () => {
               scrollEnd="top center"
               delay={0.5}
               yOffset={50}
-              className="mb-3 sm:mb-4 md:mb-6 z-20"
+              className="mb-2 sm:mb-4 md:mb-6 z-20"
             >
               <div className="bg-[#13171D] text-white px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm md:text-[16px] font-medium flex items-center gap-1.5 sm:gap-2 shine-effect relative">
                 <img
@@ -457,7 +142,7 @@ const Hero = () => {
             </AnimatedContent>
 
             {/* Main Headline - Centered */}
-            <div className="relative text-center px-2 sm:px-4">
+            <div className="relative text-center px-2 sm:px-4 lg:px-4 w-full overflow-visible">
               <BlurText
                 text={t('hero.headline')}
                 delay={100}
@@ -479,22 +164,24 @@ const Hero = () => {
                 scrollEnd="top center"
                 delay={0.3}
                 yOffset={30}
-                className="absolute -top-8 sm:-top-10 md:-top-12 lg:-top-16 -right-4 sm:-right-6 md:-right-8 lg:-right-35 z-20 animate-bounce-custom"
+                className="absolute -top-26 sm:-top-8 md:-top-36 lg:-top-16 right-0 sm:-right-4 md:-right-0 lg:right-10 z-20 animate-bounce-custom"
               >
                 <div className="relative">
                   {/* Arrow - Pointing towards center/headline */}
-                  <div className="absolute bottom-0 left-0 z-10" style={{ transform: 'translate(-20px, 15px)' }}>
+                  <div className="absolute bottom-0 left-0 z-10" style={{
+                    transform: isDesktop ? 'translate(-20px, 15px)' : 'translate(-12px, 12px)'
+                  }}>
                     <img
                       src={downArrow}
                       alt="Arrow pointing to center"
-                      className="w-3 h-3 sm:w-4 sm:h-4"
+                      className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 lg:w-4 lg:h-4"
                     />
                   </div>
                   {/* Pill with neumorphic style */}
-                  <div className="bg-background-secondary text-text w-[90px] sm:w-[100px] md:w-[108px] h-[36px] sm:h-[40px] md:h-[44px] rounded-full relative flex items-center justify-center" style={{
+                  <div className="bg-background-secondary text-text w-[85px] sm:w-[95px] md:w-[100px] lg:w-[108px] h-[32px] sm:h-[36px] md:h-[40px] lg:h-[44px] rounded-full relative flex items-center justify-center" style={{
                     boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)'
                   }}>
-                    <span className="text-xs sm:text-sm font-medium">{t('hero.branding')}</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm lg:text-sm font-medium">{t('hero.branding')}</span>
                   </div>
                 </div>
               </AnimatedContent>
@@ -507,25 +194,27 @@ const Hero = () => {
                 scrollEnd="top center"
                 delay={0.4}
                 yOffset={30}
-                className="absolute -bottom-8 sm:-bottom-10 md:-bottom-12 lg:-bottom-16 -left-4 sm:-left-6 md:-left-8 lg:-left-35 z-20 animate-bounce-custom"
+                className="absolute -bottom-20 sm:-bottom-8 md:-bottom-30 lg:-bottom-16 left-0 sm:-left-4 md:left-0 lg:left-10 z-20 animate-bounce-custom"
               >
                 <div className="relative">
                   {/* Arrow - Pointing towards center/headline */}
-                  <div className="absolute top-0 right-0 z-10" style={{ transform: 'translate(20px, -15px)' }}>
+                  <div className="absolute top-0 right-0 z-10" style={{
+                    transform: isDesktop ? 'translate(20px, -15px)' : 'translate(12px, -12px)'
+                  }}>
                     <img
                       src={upArrow}
                       alt="Arrow pointing to center"
-                      className="w-3 h-3 sm:w-4 sm:h-4"
+                      className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 lg:w-4 lg:h-4"
                     />
                   </div>
                   {/* Pill with neumorphic style */}
-                  <div className={`bg-background-secondary text-text h-[36px] sm:h-[40px] md:h-[44px] rounded-full relative flex items-center justify-center ${i18n.language === 'ta'
-                    ? 'w-auto min-w-[140px] sm:min-w-[160px] px-3 sm:px-4'
-                    : 'w-[100px] sm:w-[110px] md:w-[125px]'
+                  <div className={`bg-background-secondary text-text h-[32px] sm:h-[36px] md:h-[40px] lg:h-[44px] rounded-full relative flex items-center justify-center ${i18n.language === 'ta'
+                    ? 'w-auto min-w-[130px] sm:min-w-[150px] md:min-w-[160px] lg:min-w-[160px] px-2.5 sm:px-3 md:px-4 lg:px-4'
+                    : 'w-[90px] sm:w-[100px] md:w-[110px] lg:w-[125px]'
                     }`} style={{
                       boxShadow: '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)'
                     }}>
-                    <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{t('hero.uiuxDesign')}</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm lg:text-sm font-medium whitespace-nowrap">{t('hero.uiuxDesign')}</span>
                   </div>
                 </div>
               </AnimatedContent>
@@ -537,14 +226,33 @@ const Hero = () => {
         <section className="relative pt-0 pb-6 sm:pb-8 md:pb-10 px-4 sm:px-6 md:px-10">
           <div className="max-w-[1800px] mx-auto">
             {/* Hero Banner Image */}
-            <div className="relative flex justify-center">
+            <motion.div
+              className="relative flex justify-center"
+              initial={{ opacity: 0, y: 24, scale: 0.985 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
+            >
+              {/* Mobile Image */}
+              <img
+                src={mobileHeroBanner}
+                alt="FITFOX Website"
+                className="w-full max-w-[1700px] h-auto object-cover rounded-[10px] sm:rounded-[15px] md:rounded-[20px] md:hidden"
+              />
+              {/* Desktop Image */}
               <img
                 src={heroBanner}
                 alt="FITFOX Website"
-                className="w-full max-w-[1700px] h-auto object-cover rounded-[10px] sm:rounded-[15px] md:rounded-[20px]"
+                className="hidden md:block w-full max-w-[1700px] h-auto object-cover rounded-[10px] sm:rounded-[15px] md:rounded-[20px]"
               />
               {/* Start Design Button - Overlaid on Image */}
-              <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-12 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[90%] sm:max-w-none flex justify-center">
+              <motion.div
+                className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-12 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[90%] sm:max-w-none flex justify-center"
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.55, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+              >
                 <AnimatedButton
                   baseColor="#000000"
                   pillColor="#ffffff"
@@ -558,8 +266,8 @@ const Hero = () => {
                 >
                   {t('hero.startDesign')}
                 </AnimatedButton>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
       </div>
@@ -590,7 +298,7 @@ const Hero = () => {
       </section>
 
       {/* Services Section */}
-      <section className="relative py-14 md:py-24 bg-white">
+      <section className="relative py-10 sm:py-14 md:py-20 lg:py-24 bg-white">
         {/* Hover preview tooltip video */}
         <motion.div
           className="pointer-events-none fixed z-[9999] hidden lg:block"
@@ -617,9 +325,9 @@ const Hero = () => {
           )}
         </motion.div>
 
-        <div className="max-w-[96%] mx-auto px-6">
+        <div className="max-w-[96%] mx-auto px-4 lg:px-6">
           {/* Header */}
-          <div className="mb-16 md:mb-20">
+          <div className="mb-12 md:mb-16 lg:mb-20">
             <ScrollFloat
               animationDuration={2.5}
               ease="back.inOut(2)"
@@ -627,7 +335,7 @@ const Hero = () => {
               scrollEnd="bottom bottom-=40%"
               stagger={0.03}
               containerClassName="mb-0"
-              textClassName="text-4xl md:text-5xl lg:text-6xl  font-semibold text-[#1E1E1E] leading-tight"
+              textClassName="text text-3xl sm:text-3xl md:text-4xl lg:text-6xl font-semibold text-[#1E1E1E] leading-tight"
             >
               {t('services.header')}
             </ScrollFloat>
@@ -645,32 +353,36 @@ const Hero = () => {
               yOffset={50}
             >
               <div
-                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-center gap-6 md:gap-8 lg:gap-12 py-8 md:py-12 border-b border-t border-[#D0D0D0] px-10 cursor-pointer"
+                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-start md:items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 py-6 sm:py-8 md:py-12 border-b border-t border-[#D0D0D0] px-4 sm:px-6 md:px-10 cursor-pointer lg:cursor-pointer"
                 onMouseEnter={() => {
-                  setHoveredServiceIndex(0);
-                  setIsServicesPreviewOpen(true);
+                  if (window.innerWidth >= 1024) {
+                    setHoveredServiceIndex(0);
+                    setIsServicesPreviewOpen(true);
+                  }
                 }}
                 onMouseLeave={() => {
-                  setIsServicesPreviewOpen(false);
-                  setHoveredServiceIndex(null);
+                  if (window.innerWidth >= 1024) {
+                    setIsServicesPreviewOpen(false);
+                    setHoveredServiceIndex(null);
+                  }
                 }}
                 onMouseMove={handleServicesPreviewMove}
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-start justify-center pt-1">
-                  <img src={brandingIdentityIcon} alt="Branding Identity" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-start justify-center pt-1 md:pt-0">
+                  <img src={brandingIdentityIcon} alt="Branding Identity" className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
                 </div>
-                <div className="flex ml-70">
+                <div className="flex md:ml-20 lg:ml-70">
                   <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
-                    ? 'text-2xl md:text-3xl lg:text-4xl'
-                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    ? 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
                     }`}>
                     {t('services.branding.title')}
                   </h3>
                 </div>
-                <div className="flex items-start">
+                <div className="flex items-start mt-2 md:mt-0">
                   <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
-                    ? 'text-sm md:text-md'
-                    : 'text-base md:text-md'
+                    ? 'text-sm sm:text-base md:text-md'
+                    : 'text-sm sm:text-base md:text-md'
                     }`}>
                     {t('services.branding.description')}
                   </p>
@@ -688,32 +400,36 @@ const Hero = () => {
               yOffset={50}
             >
               <div
-                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-center gap-6 md:gap-8 lg:gap-12 py-8 md:py-12 border-b border-[#D0D0D0]  px-10 cursor-pointer"
+                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-start md:items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 py-6 sm:py-8 md:py-12 border-b border-[#D0D0D0] px-4 sm:px-6 md:px-10 cursor-pointer lg:cursor-pointer"
                 onMouseEnter={() => {
-                  setHoveredServiceIndex(1);
-                  setIsServicesPreviewOpen(true);
+                  if (window.innerWidth >= 1024) {
+                    setHoveredServiceIndex(1);
+                    setIsServicesPreviewOpen(true);
+                  }
                 }}
                 onMouseLeave={() => {
-                  setIsServicesPreviewOpen(false);
-                  setHoveredServiceIndex(null);
+                  if (window.innerWidth >= 1024) {
+                    setIsServicesPreviewOpen(false);
+                    setHoveredServiceIndex(null);
+                  }
                 }}
                 onMouseMove={handleServicesPreviewMove}
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-start justify-center pt-1">
-                  <img src={webDesignIcon} alt="Web Design" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-start justify-center pt-1 md:pt-0">
+                  <img src={webDesignIcon} alt="Web Design" className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
                 </div>
-                <div className="flex ml-70">
+                <div className="flex md:ml-20 lg:ml-70">
                   <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
-                    ? 'text-2xl md:text-3xl lg:text-4xl'
-                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    ? 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
                     }`}>
                     {t('services.webDesign.title')}
                   </h3>
                 </div>
-                <div className="flex items-start">
+                <div className="flex items-start mt-2 md:mt-0">
                   <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
-                    ? 'text-sm md:text-md'
-                    : 'text-base md:text-lg'
+                    ? 'text-sm sm:text-base md:text-md'
+                    : 'text-sm sm:text-base md:text-lg'
                     }`}>
                     {t('services.webDesign.description')}
                   </p>
@@ -731,32 +447,36 @@ const Hero = () => {
               yOffset={50}
             >
               <div
-                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-center gap-6 md:gap-8 lg:gap-12 py-8 md:py-12 border-b border-[#D0D0D0]  px-10 cursor-pointer"
+                className="grid grid-cols-1 md:grid-cols-[auto_3fr_2.5fr] items-start md:items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 py-6 sm:py-8 md:py-12 border-b border-[#D0D0D0] px-4 sm:px-6 md:px-10 cursor-pointer lg:cursor-pointer"
                 onMouseEnter={() => {
-                  setHoveredServiceIndex(2);
-                  setIsServicesPreviewOpen(true);
+                  if (window.innerWidth >= 1024) {
+                    setHoveredServiceIndex(2);
+                    setIsServicesPreviewOpen(true);
+                  }
                 }}
                 onMouseLeave={() => {
-                  setIsServicesPreviewOpen(false);
-                  setHoveredServiceIndex(null);
+                  if (window.innerWidth >= 1024) {
+                    setIsServicesPreviewOpen(false);
+                    setHoveredServiceIndex(null);
+                  }
                 }}
                 onMouseMove={handleServicesPreviewMove}
               >
-                <div className="w-12 h-12 md:w-16 md:h-16 flex items-start justify-center pt-1">
-                  <img src={brandGrowthIcon} alt="Brand Growth" className="w-12 h-12 md:w-16 md:h-16 object-contain" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-start justify-center pt-1 md:pt-0">
+                  <img src={brandGrowthIcon} alt="Brand Growth" className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 object-contain" />
                 </div>
-                <div className="flex ml-70">
+                <div className="flex md:ml-20 lg:ml-70">
                   <h3 className={`font-semibold text-[#1E1E1E] leading-tight whitespace-pre-line text-left ${i18n.language === 'ta'
-                    ? 'text-2xl md:text-3xl lg:text-4xl'
-                    : 'text-3xl md:text-4xl lg:text-5xl'
+                    ? 'text-xl sm:text-2xl md:text-3xl lg:text-4xl'
+                    : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
                     }`}>
                     {t('services.brandGrowth.title')}
                   </h3>
                 </div>
-                <div className="flex items-start">
+                <div className="flex items-start mt-2 md:mt-0">
                   <p className={`text-[#3B3B3B] leading-relaxed text-left font-normal ${i18n.language === 'ta'
-                    ? 'text-sm md:text-md'
-                    : 'text-base md:text-lg'
+                    ? 'text-sm sm:text-base md:text-md'
+                    : 'text-sm sm:text-base md:text-lg'
                     }`}>
                     {t('services.brandGrowth.description')}
                   </p>
@@ -768,15 +488,15 @@ const Hero = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="relative py-14 md:py-24 bg-[#1E1E1E]">
-        <div className="max-w-[96%] mx-auto px-6">
+      <section className="relative py-10 sm:py-14 md:py-20 lg:py-24 bg-[#1E1E1E]">
+        <div className="max-w-[96%] mx-auto px-4 sm:px-6">
           {/* Header Section */}
-          <div className="mb-12 md:mb-16 relative">
+          <div className="mb-10 sm:mb-12 md:mb-16 relative">
             {/* Header Text with All Portfolio */}
             <div className="flex-1">
               <h2 className={`font-medium text-[#F6F6F9] leading-tight ${i18n.language === 'ta'
-                ? 'text-[50px]'
-                : 'text-[55px]'
+                ? 'text-2xl sm:text-3xl md:text-4xl lg:text-[50px]'
+                : 'text-3xl sm:text-4xl md:text-5xl lg:text-[55px]'
                 }`}>
                 <RevealText
                   animationDuration={0.8}
@@ -791,6 +511,7 @@ const Hero = () => {
                   {t('portfolio.header')}
                 </RevealText>
                 {' '}
+                {/* Desktop-only: keep inline "All Portfolio" */}
                 <AnimatedContent
                   animationDuration={0.6}
                   ease="power3.out"
@@ -798,22 +519,92 @@ const Hero = () => {
                   scrollEnd="top center"
                   delay={0.3}
                   yOffset={30}
-                  className="inline-flex items-center align-middle ml-3"
+                  className="hidden lg:inline-flex items-center align-middle ml-1 sm:ml-2 md:ml-3"
                 >
                   <HoverBorderGradient
                     as="a"
                     href="#portfolio"
                     containerClassName="rounded-full"
-                    className="flex items-center gap-2 text-white text-base md:text-lg"
+                    className="flex items-center gap-1.5 sm:gap-2 text-white text-sm sm:text-base md:text-lg"
                     duration={1}
                     clockwise={true}
                   >
                     <span>{t('portfolio.allPortfolio')}</span>
-                    <ArrowUpRight className="w-5 h-5" />
+                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </HoverBorderGradient>
                 </AnimatedContent>
               </h2>
             </div>
+
+            {/* Mobile + tablet: move CTA + socials to next line */}
+            <div className="mt-4 flex items-center justify-between gap-4 lg:hidden">
+              <AnimatedContent
+                animationDuration={0.6}
+                ease="power3.out"
+                scrollStart="top bottom-=100px"
+                scrollEnd="top center"
+                delay={0.3}
+                yOffset={30}
+                className="inline-flex items-center"
+              >
+                <HoverBorderGradient
+                  as="a"
+                  href="#portfolio"
+                  containerClassName="rounded-full"
+                  className="flex items-center gap-1.5 sm:gap-2 text-white text-sm sm:text-base md:text-lg"
+                  duration={1}
+                  clockwise={true}
+                >
+                  <span>{t('portfolio.allPortfolio')}</span>
+                  <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </HoverBorderGradient>
+              </AnimatedContent>
+
+              <AnimatedContent
+                animationDuration={0.6}
+                ease="power3.out"
+                scrollStart="top bottom-=100px"
+                scrollEnd="top center"
+                delay={0.4}
+                yOffset={30}
+                className="flex items-center gap-2 sm:gap-3 md:gap-4"
+              >
+                <HoverBorderGradient
+                  as="a"
+                  href="#"
+                  containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
+                  className="flex items-center justify-center w-full h-full p-0"
+                  duration={1}
+                  clockwise={true}
+                  aria-label="WhatsApp"
+                >
+                  <img src={social1} alt="WhatsApp" className="w-full h-full object-cover rounded-[10px]" />
+                </HoverBorderGradient>
+                <HoverBorderGradient
+                  as="a"
+                  href="#"
+                  containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
+                  className="flex items-center justify-center w-full h-full p-0"
+                  duration={1}
+                  clockwise={true}
+                  aria-label="Instagram"
+                >
+                  <img src={social2} alt="Instagram" className="w-full h-full object-cover rounded-[10px]" />
+                </HoverBorderGradient>
+                <HoverBorderGradient
+                  as="a"
+                  href="#"
+                  containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
+                  className="flex items-center justify-center w-full h-full p-0"
+                  duration={1}
+                  clockwise={true}
+                  aria-label="Facebook"
+                >
+                  <img src={social3} alt="Facebook" className="w-full h-full object-cover rounded-[10px]" />
+                </HoverBorderGradient>
+              </AnimatedContent>
+            </div>
+
             {/* Social Media Icons - Right End */}
             <AnimatedContent
               animationDuration={0.6}
@@ -822,12 +613,12 @@ const Hero = () => {
               scrollEnd="top center"
               delay={0.4}
               yOffset={30}
-              className="absolute bottom-0 right-0 flex items-center gap-4 md:gap-6"
+              className="hidden lg:flex absolute bottom-0 right-0 items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6"
             >
               <HoverBorderGradient
                 as="a"
                 href="#"
-                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
                 className="flex items-center justify-center w-full h-full p-0"
                 duration={1}
                 clockwise={true}
@@ -838,7 +629,7 @@ const Hero = () => {
               <HoverBorderGradient
                 as="a"
                 href="#"
-                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
                 className="flex items-center justify-center w-full h-full p-0"
                 duration={1}
                 clockwise={true}
@@ -849,7 +640,7 @@ const Hero = () => {
               <HoverBorderGradient
                 as="a"
                 href="#"
-                containerClassName="rounded-[10px] w-[49px] h-[49px]"
+                containerClassName="rounded-[10px] w-[36px] h-[36px] sm:w-[42px] sm:h-[42px] md:w-[49px] md:h-[49px]"
                 className="flex items-center justify-center w-full h-full p-0"
                 duration={1}
                 clockwise={true}
@@ -861,7 +652,7 @@ const Hero = () => {
           </div>
 
           {/* Projects Grid - 2x2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 md:gap-y-8 gap-x-8 md:gap-x-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 sm:gap-y-6 md:gap-y-8 gap-x-4 sm:gap-x-6 md:gap-x-8 lg:gap-x-12">
             {/* Project 1 */}
             <AnimatedContent
               animationDuration={0.8}
@@ -872,7 +663,7 @@ const Hero = () => {
               yOffset={50}
             >
               <div className="group cursor-pointer">
-                <div className="mb-4 w-full max-w-[740px] h-[570px] mx-auto">
+                <div className="mb-3 sm:mb-4 w-full max-w-[740px] h-[240px] sm:h-[320px] md:h-[420px] lg:h-[570px] mx-auto">
                   <TiltedCard
                     imageSrc={portfolio1}
                     altText="Fitfox Website Design"
@@ -888,7 +679,7 @@ const Hero = () => {
                     displayOverlayContent={false}
                   />
                 </div>
-                <h3 className="text-white text-lg md:text-xl font-medium">
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-medium">
                   {t('portfolio.projectTitle')}
                 </h3>
               </div>
@@ -904,7 +695,7 @@ const Hero = () => {
               yOffset={50}
             >
               <div className="group cursor-pointer">
-                <div className="mb-4 w-full max-w-[740px] h-[570px] mx-auto">
+                <div className="mb-3 sm:mb-4 w-full max-w-[740px] h-[240px] sm:h-[320px] md:h-[420px] lg:h-[570px] mx-auto">
                   <TiltedCard
                     imageSrc={portfolio2}
                     altText="Fitfox Website Design"
@@ -920,7 +711,7 @@ const Hero = () => {
                     displayOverlayContent={false}
                   />
                 </div>
-                <h3 className="text-white text-lg md:text-xl font-medium ">
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-medium">
                   {t('portfolio.projectTitle')}
                 </h3>
               </div>
@@ -936,7 +727,7 @@ const Hero = () => {
               yOffset={50}
             >
               <div className="group cursor-pointer">
-                <div className="mb-4 w-full max-w-[740px] h-[570px] mx-auto">
+                <div className="mb-3 sm:mb-4 w-full max-w-[740px] h-[240px] sm:h-[320px] md:h-[420px] lg:h-[570px] mx-auto">
                   <TiltedCard
                     imageSrc={portfolio3}
                     altText="Fitfox Website Design"
@@ -952,7 +743,7 @@ const Hero = () => {
                     displayOverlayContent={false}
                   />
                 </div>
-                <h3 className="text-white text-lg md:text-xl font-medium ">
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-medium">
                   {t('portfolio.projectTitle')}
                 </h3>
               </div>
@@ -968,7 +759,7 @@ const Hero = () => {
               yOffset={50}
             >
               <div className="group cursor-pointer">
-                <div className="mb-4 w-full max-w-[740px] h-[570px] mx-auto">
+                <div className="mb-3 sm:mb-4 w-full max-w-[740px] h-[240px] sm:h-[320px] md:h-[420px] lg:h-[570px] mx-auto">
                   <TiltedCard
                     imageSrc={portfolio4}
                     altText="Fitfox Website Design"
@@ -984,7 +775,7 @@ const Hero = () => {
                     displayOverlayContent={false}
                   />
                 </div>
-                <h3 className="text-white text-lg md:text-xl font-medium ">
+                <h3 className="text-white text-base sm:text-lg md:text-xl font-medium">
                   {t('portfolio.projectTitle')}
                 </h3>
               </div>
@@ -994,11 +785,11 @@ const Hero = () => {
       </section>
 
       {/* Visual Systems Section */}
-      <section className="relative py-14 md:py-24 bg-white">
-        <div className="max-w-[96%] mx-auto px-6">
+      <section className="relative py-10 sm:py-12 md:py-14 lg:py-24 bg-white">
+        <div className="max-w-[96%] mx-auto px-4 sm:px-6">
           {/* Header with Date */}
           <div className="mb-12 md:mb-16 relative">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 sm:mb-8">
               <div className="flex-1">
                 <h2 className={`font-medium text-[#1E1E1E] leading-tight ${i18n.language === 'ta'
                   ? 'text-3xl md:text-4xl lg:text-5xl'
@@ -1018,7 +809,7 @@ const Hero = () => {
                   </RevealText>
                 </h2>
               </div>
-              <div className="text-2xl md:text-3xl  font-medium text-[#1E1E1E]">
+              <div className="mt-3 lg:mt-0 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-[#1E1E1E]">
                 {t('visualSystems.date')}
               </div>
             </div>
@@ -1035,17 +826,17 @@ const Hero = () => {
               yOffset={50}
               className="w-full max-w-5xl relative"
             >
-              <div className=" flex items-center justify-center relative">
+              <div className="flex items-center justify-center relative">
                 {/* Brochure Image with TiltedCard */}
-                <div className="w-full h-[500px] flex items-center justify-center">
+                <div className="w-full h-[280px] sm:h-[360px] md:h-[440px] lg:h-[500px] flex items-center justify-center">
                   <TiltedCard
                     imageSrc={visualDesign}
                     altText="Visual Design Brochure"
                     captionText="Visual Design Brochure"
-                    containerHeight="482px"
-                    containerWidth="90%"
-                    imageHeight="500px"
-                    imageWidth="90%"
+                    containerHeight="100%"
+                    containerWidth="100%"
+                    imageHeight="100%"
+                    imageWidth="100%"
                     rotateAmplitude={12}
                     scaleOnHover={1.05}
                     showMobileWarning={false}
@@ -1063,9 +854,9 @@ const Hero = () => {
           </div>
 
           {/* Bottom Section - Description and View All Works */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="flex flex-col md:flex-row lg:flex-row lg:items-end lg:justify-between gap-6">
             {/* Description Text */}
-            <div className="flex-1 max-w-lg md:max-w-md">
+            <div className="flex-1 max-w-full sm:max-w-lg lg:max-w-md">
               <AnimatedContent
                 animationDuration={0.8}
                 ease="power3.out"
@@ -1091,17 +882,20 @@ const Hero = () => {
               scrollEnd="top center"
               delay={0.4}
               yOffset={30}
+              className="w-full sm:w-auto"
             >
               <a
                 href="#works"
                 className="
     group relative
     inline-flex items-center
-    w-[176px] h-[52px]
+    w-full sm:w-[176px] h-[52px]
     pl-5 pr-[52px]
     rounded-full
     bg-[#F1F1F1]
     overflow-hidden
+    justify-center sm:justify-start
+    mx-auto sm:mx-0
   "
               >
                 {/* Flip text */}
@@ -1168,349 +962,9 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Testimonials & CEO Corner Section */}
-      <section className="relative py-14 md:py-24 bg-white">
-        <div className="max-w-[96%] mx-auto px-6">
+      <TestimonialsCeoSection />
 
-          {/* BLACK CONTAINER */}
-          <AnimatedContent
-            animationDuration={0.9}
-            ease="power3.out"
-            scrollStart="top bottom-=120px"
-            scrollEnd="top center"
-            delay={0}
-            yOffset={60}
-            startScale={0.98}
-          >
-            <div className="bg-[#09090B] rounded-[32px] px-16 md:px-20 py-16 md:py-20 shadow-[0_60px_140px_rgba(0,0,0,0.35)]" style={{ width: '1617px', maxWidth: '100%' }}>
-
-              {/* ================= TOP SECTION ================= */}
-              <div className="grid grid-cols-1 lg:grid-cols-[45%_55%]">
-                {/* ================= LEFT ================= */}
-                <AnimatedContent
-                  animationDuration={0.8}
-                  ease="power3.out"
-                  scrollStart="top bottom-=100px"
-                  scrollEnd="top center"
-                  yOffset={50}
-                  className="flex flex-col"
-                >
-                  <div>
-                    {/* Rating */}
-                    <div className="mb-8">
-                      <div className="flex items-baseline gap-2">
-                        <CountUp
-                          from={0}
-                          to={parseFloat(t("testimonials.rating"))}
-                          direction="up"
-                          duration={1.5}
-                          className="text-[50px] font-medium text-white"
-                          startWhen={true}
-                        />
-                        <span className="text-[50px] font-semibold text-[#FFA300]">
-                          *
-                        </span>
-                      </div>
-                      <p className="text-[15px] text-[#C5C5C5] font-normal">
-                        {t("testimonials.reviews")}
-                      </p>
-                    </div>
-
-                    {/* Tagline */}
-                    <ShinyText
-                      text={t("testimonials.tagline")
-                        .split('. ')
-                        .map((part, index, arr) =>
-                          index < arr.length - 1 ? `${part.trim()}.` : part.trim()
-                        )
-                        .join('\n')}
-                      speed={2}
-                      delay={0}
-                      color="#b5b5b5"
-                      shineColor="#ffffff"
-                      spread={120}
-                      direction="left"
-                      yoyo={false}
-                      pauseOnHover={false}
-                      disabled={false}
-                      className={`text-[#F6F6F9] leading-tight tracking-tight whitespace-pre-line font-medium ${i18n.language === 'ta'
-                        ? 'text-[34px]'
-                        : 'text-[45px]'
-                        }`}
-                    />
-                  </div>
-
-                  {/* Navigation */}
-                  <div className="flex gap-4 mt-14">
-                    <button
-                      onClick={handlePrevious}
-                      disabled={isAnimating}
-                      className="w-9.5 h-9.5 rounded-full bg-[#151515] border border-white/10 flex items-center justify-center hover:bg-[#222] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <img src={arrowLeftIcon} alt="Previous" className="w-[12px] h-[12px]" />
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      disabled={isAnimating}
-                      className="w-9.5 h-9.5 rounded-full bg-[#151515] border border-white/10 flex items-center justify-center hover:bg-[#222] transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      <img src={arrowRightIcon} alt="Next" className="w-[12px] h-[12px]" />
-                    </button>
-                  </div>
-                </AnimatedContent>
-
-                {/* ================= RIGHT ================= */}
-                <AnimatedContent
-                  animationDuration={0.8}
-                  ease="power3.out"
-                  scrollStart="top bottom-=100px"
-                  scrollEnd="top center"
-                  delay={0.2}
-                  yOffset={50}
-                >
-                  <div
-                    className="relative h-[520px] flex items-start justify-center"
-                    style={{ perspective: "1000px" }}
-                  >
-                    {testimonials.map((testimonial, index) => {
-                      const isCurrent = index === currentIndex;
-                      const isBehind1 =
-                        index === (currentIndex + 1) % testimonials.length;
-                      const isBehind2 =
-                        index === (currentIndex + 2) % testimonials.length;
-
-                      if (!isCurrent && !isBehind1 && !isBehind2) return null;
-
-                      const zIndex = isCurrent ? 10 : isBehind1 ? 8 : 6;
-                      const translateY = isCurrent ? 0 : isBehind1 ? 24 : 48;
-                      const scale = isCurrent ? 1 : isBehind1 ? 0.97 : 0.94;
-                      const rotateX = isCurrent ? 0 : isBehind1 ? -2 : -4;
-                      const opacity = isCurrent ? 1 : isBehind1 ? 0.85 : 0.65;
-                      const blur = isCurrent ? 0 : isBehind1 ? 1.5 : 3;
-                      const width = isCurrent ? 820 : 760;
-
-                      return (
-                        <motion.div
-                          key={index}
-                          className="absolute"
-                          style={{
-                            top: 0,
-                            left: "50%",
-                            maxWidth: "100%",
-                            transformOrigin: "top center",
-                            zIndex,
-                            pointerEvents: isCurrent ? "auto" : "none",
-                          }}
-                          animate={{
-                            x: "-50%",
-                            y: translateY,
-                            scale: scale,
-                            rotateX: rotateX,
-                            opacity: opacity,
-                            width: width,
-                          }}
-                          transition={{
-                            duration: 0.6,
-                            ease: [0.4, 0, 0.2, 1],
-                          }}
-                        >
-                          <motion.div
-                            className="w-full h-full"
-                            animate={{
-                              filter: `blur(${blur}px)`,
-                            }}
-                            transition={{
-                              duration: 0.6,
-                              ease: [0.4, 0, 0.2, 1],
-                            }}
-                          >
-                            {/* Card */}
-                            <div
-                              className="
-                          relative
-                          bg-[#131416]/90
-                          backdrop-blur-sm
-                          rounded-3xl
-                          p-14
-                          border border-[#202123]
-                          shadow-[0_20px_30px_rgba(0,0,0,0.10)]
-                        "
-                              style={{ height: "400px" }}
-                            >
-                              {/* Red line */}
-                              <div className="absolute top-0 left-10 right-10 h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-transparent rounded-full" />
-
-                              {/* Stars */}
-                              <div className="flex justify-center gap-2 mb-8">
-                                {[1, 2, 3, 4, 5].map((i) => (
-                                  <img
-                                    key={i}
-                                    src={starOutlineIcon}
-                                    alt="Star"
-                                    className="w-7 h-7"
-                                    style={{
-                                      filter:
-                                        i <= testimonial.rating
-                                          ? "brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(3450%) hue-rotate(5deg)"
-                                          : "brightness(0) saturate(100%) invert(25%)",
-                                    }}
-                                  />
-                                ))}
-                              </div>
-
-                              {/* Quote */}
-                              <TestimonialQuote quote={testimonial.quote} />
-
-                              {/* Author */}
-                              <TestimonialAuthor name={testimonial.name} title={testimonial.title} />
-                            </div>
-                          </motion.div>
-                        </motion.div>
-
-                      );
-                    })}
-                  </div>
-                </AnimatedContent>
-              </div>
-
-              {/* ================= CEO CORNER ================= */}
-              <AnimatedContent
-                animationDuration={0.8}
-                ease="power3.out"
-                scrollStart="top bottom-=100px"
-                scrollEnd="top center"
-                delay={0.3}
-                yOffset={50}
-              >
-                {/* Gradient Border Wrapper */}
-                <div
-                  className="relative rounded-3xl p-[1px]"
-                  style={{
-                    background:
-                      "linear-gradient(105.96deg, #A4A4A4 0.09%, #131416 61.12%)",
-                  }}
-                >
-                  {/* Card */}
-                  <div
-                    className="relative rounded-3xl p-10 md:p-10 overflow-hidden"
-                    style={{
-                      background:
-                        "linear-gradient(174.70deg, #131416 8.19%, #000000 80.92%, #FF0028 102.74%)",
-                      boxShadow:
-                        "0px 20px 30px rgba(0,0,0,0.25), 0 40px 120px rgba(0,0,0,0.9)",
-                    }}
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-[380px_1fr] gap-6 items-center">
-
-                      {/* CEO Image */}
-                      <motion.div
-                        className="shine-effect relative rounded-2xl overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-white/10"
-                        initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{
-                          duration: 0.8,
-                          ease: [0.4, 0, 0.2, 1],
-                          delay: 0.2
-                        }}
-                      >
-                        <img
-                          src={ceoImage}
-                          alt="CEO"
-                          className="w-[380px] h-[400px] object-cover object-center"
-                        />
-                      </motion.div>
-
-                      {/* CEO Content */}
-                      <div className="flex flex-col h-full justify-center px-10 ml-14">
-                        <p className="uppercase tracking-widest text-[18px] text-[#F6F6F9] mb-4 font-normal">
-                          <RevealText
-                            animationDuration={0.8}
-                            ease="power3.out"
-                            scrollStart="top bottom-=100px"
-                            scrollEnd="top center"
-                            stagger={0.05}
-                            revealBy="words"
-                            containerClassName=""
-                            textClassName=""
-                          >
-                            {t("ceoCorner.header")}
-                          </RevealText>
-                        </p>
-
-                        <p className={`font-medium text-[#F6F6F9] leading-[1.25] tracking-tight mb-6 whitespace-pre-line ${i18n.language === 'ta'
-                          ? 'text-[32px]'
-                          : 'text-[40px]'
-                          }`}>
-                          <RevealText
-                            animationDuration={0.8}
-                            ease="power3.out"
-                            scrollStart="top bottom-=100px"
-                            scrollEnd="top center"
-                            stagger={0.05}
-                            revealBy="words"
-                            containerClassName=""
-                            textClassName=""
-                          >
-                            {t("ceoCorner.headline")}
-                          </RevealText>
-                        </p>
-
-                        <p className="text-[#FFFFFF]  font-medium text-[25px]">
-                          <RevealText
-                            animationDuration={0.8}
-                            ease="power3.out"
-                            scrollStart="top bottom-=100px"
-                            scrollEnd="top center"
-                            stagger={0.05}
-                            revealBy="words"
-                            containerClassName=""
-                            textClassName=""
-                          >
-                            {t("ceoCorner.name")}
-                          </RevealText>
-                        </p>
-                        <p className="text-[#DDDDDD] text-[16px] font-normal">
-                          <RevealText
-                            animationDuration={0.8}
-                            ease="power3.out"
-                            scrollStart="top bottom-=100px"
-                            scrollEnd="top center"
-                            stagger={0.05}
-                            revealBy="words"
-                            containerClassName=""
-                            textClassName=""
-                          >
-                            {t("ceoCorner.title")}
-                          </RevealText>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </AnimatedContent>
-            </div>
-          </AnimatedContent>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="relative pt-14 md:pt-24 pb-0 bg-[#EBEBEB]">
-        <div className="max-w-[1400px] mx-auto">
-          {/* Headline */}
-          <ContactSectionHeadline headline={t("contact.headline") || "Ready to build something impactful?"} />
-          <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] items-start">
-            {/* LEFT SIDE - Description with Icon */}
-            <ContactSectionDescription
-              description={t("contact.description") || "Whether you're building a brand, launching a website or growing a product, we're here to help. Share your goals - We'll handle the strategy."}
-            />
-
-            {/* RIGHT SIDE - Image and Form */}
-            <ContactSectionForm image={contactImage} t={t} />
-          </div>
-        </div>
-      </section>
+      <ContactSection />
 
 
     </>

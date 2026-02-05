@@ -53,7 +53,7 @@ const RevealText = ({
 
     const textElements = el.querySelectorAll('.reveal-text-item');
 
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       textElements,
       {
         opacity: 0,
@@ -76,7 +76,19 @@ const RevealText = ({
       }
     );
 
+    // On tablet/mobile, layout can shift after images/fonts load; ensure triggers recalc.
+    const refresh = () => ScrollTrigger.refresh();
+    const rafId = requestAnimationFrame(refresh);
+    const timeoutId = window.setTimeout(refresh, 200);
+    window.addEventListener('load', refresh, { passive: true });
+    window.addEventListener('resize', refresh, { passive: true });
+
     return () => {
+      window.removeEventListener('load', refresh);
+      window.removeEventListener('resize', refresh);
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+      tween?.kill();
       ScrollTrigger.getAll().forEach(trigger => {
         if (trigger.trigger === el) {
           trigger.kill();
