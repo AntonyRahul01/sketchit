@@ -22,6 +22,7 @@ import social1 from '../assets/images/social1.png';
 import social2 from '../assets/images/social2.png';
 import social3 from '../assets/images/social3.png';
 import visualDesign from '../assets/images/visualdesign.webp';
+import mobileVisualDesign from '../assets/images/mvisualdesign.png';
 import visualDesignLogo from '../assets/images/visualdesignlogo.png';
 import LogoLoop from './LogoLoop';
 import AnimatedButton from './AnimatedButton';
@@ -41,6 +42,50 @@ import ContactSection from './ContactSection';
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
+  const [isMobile, setIsMobile] = useState(() => {
+    // Initialize with current window width on mount
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 640; // sm breakpoint
+    }
+    return false;
+  });
+
+  // Check if screen is mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileView = window.innerWidth < 640; // sm breakpoint
+      setIsMobile(isMobileView);
+    };
+
+    // Check immediately
+    checkMobile();
+
+    // Use matchMedia for more reliable detection
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    const handleChange = (e) => {
+      setIsMobile(e.matches);
+    };
+
+    // Add listener
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      // Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+    }
+
+    // Also listen to resize as fallback
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        mediaQuery.removeListener(handleChange);
+      }
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Services hover preview video (desktop only)
   const [isServicesPreviewOpen, setIsServicesPreviewOpen] = React.useState(false);
@@ -828,26 +873,60 @@ const Hero = () => {
             >
               <div className="flex items-center justify-center relative">
                 {/* Brochure Image with TiltedCard */}
-                <div className="w-full h-[280px] sm:h-[360px] md:h-[440px] lg:h-[500px] flex items-center justify-center">
-                  <TiltedCard
-                    imageSrc={visualDesign}
-                    altText="Visual Design Brochure"
-                    captionText="Visual Design Brochure"
-                    containerHeight="100%"
-                    containerWidth="100%"
-                    imageHeight="100%"
-                    imageWidth="100%"
-                    rotateAmplitude={12}
-                    scaleOnHover={1.05}
-                    showMobileWarning={false}
-                    showTooltip={false}
-                    displayOverlayContent={true}
-                    overlayContent={
-                      <div className="relative w-full h-full">
-                        <img src={visualDesignLogo} alt="Akaram Logo" className="absolute top-4 left-4 md:top-8 md:left-10 h-8 md:h-10 w-auto" />
-                      </div>
-                    }
-                  />
+                <div className="w-full h-[360px] sm:h-[360px] md:h-[500px] lg:h-[600px] flex items-center justify-center">
+                  {/* Mobile Image - visible only on mobile */}
+                  <div className="block sm:hidden w-full h-full">
+                    <TiltedCard
+                      imageSrc={mobileVisualDesign}
+                      altText="Visual Design Brochure"
+                      captionText="Visual Design Brochure"
+                      containerHeight="100%"
+                      containerWidth="100%"
+                      imageHeight="100%"
+                      imageWidth="100%"
+                      rotateAmplitude={6}
+                      scaleOnHover={1.02}
+                      showMobileWarning={false}
+                      showTooltip={false}
+                      displayOverlayContent={true}
+                      overlayContent={
+                        <div className="relative w-full h-full">
+                          <img
+                            src={visualDesignLogo}
+                            alt="Akaram Logo"
+                            className="absolute top-5 left-5 h-8 w-auto md:top-6 md:left-6 md:h-8 md:w-auto lg:top-8 lg:left-10 lg:h-10 lg:w-auto"
+                          />
+                        </div>
+                      }
+                    />
+                  </div>
+
+                  {/* Desktop Image - visible on tablet and desktop */}
+                  <div className="hidden sm:block w-full h-full">
+                    <TiltedCard
+                      imageSrc={visualDesign}
+                      altText="Visual Design Brochure"
+                      captionText="Visual Design Brochure"
+                      containerHeight="100%"
+                      containerWidth="100%"
+                      imageHeight="100%"
+                      imageWidth="100%"
+                      rotateAmplitude={8}
+                      scaleOnHover={1.03}
+                      showMobileWarning={false}
+                      showTooltip={false}
+                      displayOverlayContent={true}
+                      overlayContent={
+                        <div className="relative w-full h-full">
+                          <img
+                            src={visualDesignLogo}
+                            alt="Akaram Logo"
+                            className="absolute top-4 left-4 md:top-6 md:left-6 lg:top-8 lg:left-10 h-7 w-auto md:h-10 lg:h-10"
+                          />
+                        </div>
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </AnimatedContent>
@@ -889,7 +968,7 @@ const Hero = () => {
                 className="
     group relative
     inline-flex items-center
-    w-full sm:w-[176px] h-[52px]
+    w-[180px] sm:w-[180px] h-[52px] lg:w-full
     pl-5 pr-[52px]
     rounded-full
     bg-[#F1F1F1]

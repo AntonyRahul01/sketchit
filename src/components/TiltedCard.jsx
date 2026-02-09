@@ -71,14 +71,25 @@ export default function TiltedCard({
     rotateFigcaption.set(0);
   }
 
+  // Determine if we should use percentage-based sizing
+  const usePercentageSizing = imageHeight === '100%' || imageWidth === '100%';
+  const containerStyle = usePercentageSizing
+    ? { height: containerHeight, width: containerWidth }
+    : { height: containerHeight, width: containerWidth };
+
+  const imageContainerStyle = usePercentageSizing
+    ? { width: '100%', height: '100%', rotateX, rotateY, scale }
+    : { width: imageWidth, height: imageHeight, rotateX, rotateY, scale };
+
+  const imageStyle = usePercentageSizing
+    ? { width: '100%', height: '100%' }
+    : { width: imageWidth, height: imageHeight };
+
   return (
     <figure
       ref={ref}
-      className="relative w-full h-full [perspective:800px] flex flex-col items-center justify-center"
-      style={{
-        height: containerHeight,
-        width: containerWidth
-      }}
+      className="relative w-full h-full [perspective:800px] sm:[perspective:1000px] md:[perspective:1200px] flex flex-col items-center justify-center"
+      style={containerStyle}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -90,31 +101,20 @@ export default function TiltedCard({
       )}
 
       <motion.div
-        className="relative [transform-style:preserve-3d]"
-        style={{
-          width: imageWidth,
-          height: imageHeight,
-          rotateX,
-          rotateY,
-          scale
-        }}
+        className="relative w-full h-full [transform-style:preserve-3d]"
+        style={imageContainerStyle}
       >
         <motion.img
           src={imageSrc}
           alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-[20px] will-change-transform [transform:translateZ(0)]"
-          style={{
-            width: imageWidth,
-            height: imageHeight
-          }}
+          className="absolute top-0 left-0 w-full h-full object-cover rounded-[12px] sm:rounded-[16px] md:rounded-[20px] will-change-transform [transform:translateZ(0)]"
+          style={imageStyle}
         />
 
         {displayOverlayContent && overlayContent && (
           <motion.div
-            className="absolute top-0 left-0 z-[2] will-change-transform pointer-events-none [transform-style:preserve-3d]"
+            className="absolute top-0 left-0 w-full h-full z-[2] will-change-transform pointer-events-none [transform-style:preserve-3d]"
             style={{
-              width: imageWidth,
-              height: imageHeight,
               transform: 'translateZ(30px)'
             }}
           >

@@ -30,6 +30,22 @@
   "cta": {
     "bookCall": "Book a Call"
   },
+  "work": {
+    "subtitle": "STRATEGIC DESIGN",
+    "headline": "BUILDING BRANDS\nWITH CLARITY",
+    "description": "Clear thinking. Strong design. Brands that communicate with confidence.",
+    "startDesign": "Start Design",
+    "selectedProjects": "Selected projects showcasing our design approach.",
+    "about": {
+      "headline": "Sketchit - Designing with Purpose",
+      "description1": "Sketchit is a design studio with over 7 years of experience, specializing in UI/UX and Graphic Design. We help brands communicate clearly, connect with their audience, and leave a lasting impression through thoughtful, purpose-driven design.",
+      "description2": "Our expertise spans digital interfaces, branding, visual identity, and creative campaigns, combining strategy and creativity to craft solutions that are both aesthetically refined and functionally effective."
+    },
+    "tools": {
+      "headline": "Tools Behind the Work",
+      "subtitle": "Mastered for every project."
+    }
+  },
   "trustedBy": {
     "title": "We are Trusted by"
   },
@@ -148,5 +164,11 @@
       "content": "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:",
       "email": "Email:"
     }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you're looking for. The page might have been moved, deleted, or doesn't exist.",
+    "goHome": "Go Home",
+    "goBack": "Go Back"
   }
 }

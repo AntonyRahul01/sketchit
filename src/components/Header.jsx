@@ -187,11 +187,17 @@ const Header = () => {
             {/* Navigation Links - Right Side - Desktop Only */}
             {!isPrivacyPolicyPage && (
               <div className="hidden lg:flex items-center gap-1">
-                <a
-                  href="#home"
+                <Link
+                  to="/"
                   onClick={(e) => {
-                    e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (location.pathname === '/') {
+                      e.preventDefault();
+                      if (window.lenis) {
+                        window.lenis.scrollTo(0, { duration: 1.2 });
+                      } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    }
                   }}
                   className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
                 >
@@ -203,7 +209,7 @@ const Header = () => {
                       {t('nav.home')}
                     </span>
                   </span>
-                </a>
+                </Link>
                 <a
                   href="#solutions"
                   className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
@@ -217,8 +223,18 @@ const Header = () => {
                     </span>
                   </span>
                 </a>
-                <a
-                  href="#work"
+                <Link
+                  to="/ourwork"
+                  onClick={(e) => {
+                    if (location.pathname === '/ourwork') {
+                      e.preventDefault();
+                      if (window.lenis) {
+                        window.lenis.scrollTo(0, { duration: 1.2 });
+                      } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    }
+                  }}
                   className="group relative px-4 py-2 rounded-full text-[#13171D] hover:bg-[#000000] transition-all duration-300 text-[15px] font-[400] overflow-hidden"
                 >
                   <span className="relative block h-[20px] leading-[20px] overflow-hidden">
@@ -229,7 +245,7 @@ const Header = () => {
                       {t('nav.ourWork')}
                     </span>
                   </span>
-                </a>
+                </Link>
                 <a
                   href="#contact"
                   onClick={(e) => {
@@ -450,17 +466,23 @@ const Header = () => {
                   <div className="p-2">
                     {/* Navigation Links */}
                     <nav className="flex flex-col gap-1 mb-2">
-                      <a
-                        href="#home"
+                      <Link
+                        to="/"
                         onClick={(e) => {
-                          e.preventDefault();
                           setIsMobileMenuOpen(false);
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                          if (location.pathname === '/') {
+                            e.preventDefault();
+                            if (window.lenis) {
+                              window.lenis.scrollTo(0, { duration: 1.2 });
+                            } else {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                          }
                         }}
                         className="px-4 py-3 rounded-xl text-[#13171D] hover:bg-[#13171D] hover:text-white transition-all duration-200 text-[15px] font-medium"
                       >
                         {t('nav.home')}
-                      </a>
+                      </Link>
                       <a
                         href="#solutions"
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -468,13 +490,23 @@ const Header = () => {
                       >
                         {t('nav.solutions')}
                       </a>
-                      <a
-                        href="#work"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                      <Link
+                        to="/ourwork"
+                        onClick={(e) => {
+                          setIsMobileMenuOpen(false);
+                          if (location.pathname === '/ourwork') {
+                            e.preventDefault();
+                            if (window.lenis) {
+                              window.lenis.scrollTo(0, { duration: 1.2 });
+                            } else {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                          }
+                        }}
                         className="px-4 py-3 rounded-xl text-[#13171D] hover:bg-[#13171D] hover:text-white transition-all duration-200 text-[15px] font-medium"
                       >
                         {t('nav.ourWork')}
-                      </a>
+                      </Link>
                       <a
                         href="#contact"
                         onClick={(e) => {

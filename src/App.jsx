@@ -7,6 +7,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import Work from './components/Work';
+import NotFound from './components/NotFound';
 import CursorFollower from './components/CursorFollower';
 import ScrollToTop from './components/ScrollToTop';
 import './App.css';
@@ -65,6 +67,8 @@ function App() {
         <Routes>
           <Route path="/" element={<AppContent />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/ourwork" element={<Work />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </MobileMenuProvider>
     </BrowserRouter>
